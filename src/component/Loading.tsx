@@ -3,15 +3,20 @@ import { useEffect, useState } from 'react';
 const Loading = () => {
 
     const [clock, setClock] = useState(0);
+    const [clock2, setClock2] = useState(0);
 
     useEffect(() => {
         setInterval(() => {
             setClock(prev => prev + 1)
-        }, 500)
+        }, 200)
+
+        setInterval(() => {
+            setClock2(prev => prev + 1)
+        }, 400)
     }, [])
 
     return (
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center pt-[50vh]'>
             <div className='flex flex-row items-center space-x-[7px]'>
                 {Array(6).fill(0).map((it, idx) => {
                     return (
@@ -22,7 +27,7 @@ const Loading = () => {
             </div>
             <p className='text-[white] text-[20px] mt-[17px] w-[85px]'>
                 Loading
-                {Array(clock % 4).fill(0).map((it, idx) => (
+                {Array(clock2 % 4).fill(0).map((it, idx) => (
                     <span key={idx}>.</span>
                 ))}</p>
         </div>

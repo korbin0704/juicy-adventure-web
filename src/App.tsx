@@ -10,7 +10,6 @@ gsap.registerPlugin(useGSAP);
 
 function App() {
 
-  const headerRef = useRef<any>(null);
   const videoRef = useRef<any>(null);
   const logoRef = useRef<any>(null);
   const sloganRef = useRef<any>(null);
@@ -21,35 +20,34 @@ function App() {
 
   useEffect(() => {
     if (loadingEnd) {
-      gsap.from(headerRef.current, { rotation: 0, y: -50, duration: 1 })
       gsap.from(videoRef.current, {
         duration: 1,
-        rotation: 360,
+        rotation: 0,
         opacity: 0,
         delay: 0.5,
         stagger: 0.2,
         ease: "sine.out",
         force3D: true
       });
-      gsap.from(sloganRef.current, { rotate: 360, ease: "sine.in", y: -880, duration: 1, opacity: 0, delay: 1 })
-      gsap.from(logoRef.current, { ease: "bounce.out", y: -550, duration: 1, opacity: 0, delay: 2 })
+      gsap.from(sloganRef.current, { rotate: 360, ease: "sine.in", y: -880, duration: 1, opacity: 0, delay: 2.5 })
+      gsap.from(logoRef.current, { ease: "bounce.out", y: -550, duration: 1, opacity: 0, delay: 3.5 })
     }
   }, [loadingEnd])
 
   const onVideoReady = () => {
     setTimeout(() => {
       setLoadingEnd(true)
-    }, 1000)
+    }, 3000)
   }
 
   return (
     <div className='flex flex-col'>
-      <div className='z-[100] relative w-full max-w-[1171px] self-center'>
+      <div className='z-1 relative w-full max-w-[1171px] self-center'>
         {!loadingEnd ?
           <Loading />
           :
           <div className='flex flex-col'>
-            <div ref={headerRef} className='absolute w-full'>
+            <div className='absolute w-full z-[10]'>
               <Header />
             </div>
             <div className='mt-[72px] md:mt-[173px] flex flex-col items-center md:items-start'>
