@@ -13,23 +13,17 @@ const Loading = () => {
     return (
         <div className='flex flex-col items-center'>
             <div className='flex flex-row items-center space-x-[7px]'>
-                <div className={clock % 7 > 0 ? 'w-[24px] h-[24px] border-[3px] bg-[white] border-[white]' : 'w-[24px] h-[24px] border-[3px] border-[white]'}>
-                </div>
-                <div className={clock % 7 > 1 ? 'w-[24px] h-[24px] border-[3px] bg-[white] border-[white]' : 'w-[24px] h-[24px] border-[3px] border-[white]'}>
-                </div>
-                <div className={clock % 7 > 2 ? 'w-[24px] h-[24px] border-[3px] bg-[white] border-[white]' : 'w-[24px] h-[24px] border-[3px] border-[white]'}>
-                </div>
-                <div className={clock % 7 > 3 ? 'w-[24px] h-[24px] border-[3px] bg-[white] border-[white]' : 'w-[24px] h-[24px] border-[3px] border-[white]'}>
-                </div>
-                <div className={clock % 7 > 4 ? 'w-[24px] h-[24px] border-[3px] bg-[white] border-[white]' : 'w-[24px] h-[24px] border-[3px] border-[white]'}>
-                </div>
-                <div className={clock % 7 > 5 ? 'w-[24px] h-[24px] border-[3px] bg-[white] border-[white]' : 'w-[24px] h-[24px] border-[3px] border-[white]'}>
-                </div>
+                {Array(6).fill(0).map((it, idx) => {
+                    return (
+                        <div key={idx} className={clock % 7 > idx ? 'w-[24px] h-[24px] border-[3px] bg-[white] border-[white]' : 'w-[24px] h-[24px] border-[3px] border-[white]'}>
+                        </div>
+                    )
+                })}
             </div>
             <p className='text-[white] text-[20px] mt-[17px] w-[85px]'>
                 Loading
-                {new Array(clock % 4).fill(0).map(it => (
-                    <span>.</span>
+                {Array(clock % 4).fill(0).map((it, idx) => (
+                    <span key={idx}>.</span>
                 ))}</p>
         </div>
     );
