@@ -12,6 +12,7 @@ gsap.registerPlugin(useGSAP);
 function App() {
 
   const videoRef = useRef<any>(null);
+  const step1Ref = useRef<any>(null);
   const logoRef = useRef<any>(null);
   const sloganRef = useRef<any>(null);
   const [loadingEnd, setLoadingEnd] = useState(false)
@@ -74,6 +75,17 @@ function App() {
     return res
   }
 
+  const onNextStep = () => {
+    if (step == 1) {
+      videoRef.current.play()
+      gsap.to(step1Ref.current, { opacity: 0, duration: 2 })
+      setTimeout(() => {
+        videoRef.current.pause()
+        setStep(step + 1)
+      }, 7000)
+    }
+  }
+
   return (
     <div className='flex flex-col'>
       <div className={loadingEnd ? 'fixed w-[100vw] h-[100vh]' : 'hidden'}>
@@ -87,15 +99,21 @@ function App() {
             <div className='absolute w-full z-[10]'>
               <Header />
             </div>
-            <div className='mt-[72px] md:mt-[173px] flex flex-col items-center md:items-start'>
-              <img ref={logoRef} src='/img/img_juicy_logo.png' className='w-[242px] h-[128px] md:w-[448px] md:h-[237px] md:ml-[30px]' />
-              <p ref={sloganRef} className='text-[20px] md:text-[32px] font-[700] text-white w-fit mt-[15px] md:mt-[44px] md:ml-[19px]'>
-                Let's Make Some Juice!
-              </p>
-            </div>
-            <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionX(getIsMobile() ? 69 : 59)}%`, top: `${getButtonPositionY(getIsMobile() ? 58 : 41)}%` }}>
-              <AnimatingButton />
-            </div>
+            {step == 1 &&
+              <div ref={step1Ref}>
+                <div className='mt-[72px] md:mt-[173px] flex flex-col items-center md:items-start'>
+                  <img ref={logoRef} src='/img/img_juicy_logo.png' className='w-[242px] h-[128px] md:w-[448px] md:h-[237px] md:ml-[30px]' />
+                  <p ref={sloganRef} className='text-[20px] md:text-[32px] font-[700] text-white w-fit mt-[15px] md:mt-[44px] md:ml-[19px]'>
+                    Let's Make Some Juice!
+                  </p>
+                </div>
+                <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionX(getIsMobile() ? 69 : 59)}%`, top: `${getButtonPositionY(getIsMobile() ? 58 : 41)}%` }}>
+                  <AnimatingButton onClick={() => {
+                    onNextStep()
+                  }} />
+                </div>
+              </div>
+            }
           </div>
         }
       </div>

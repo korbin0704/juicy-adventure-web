@@ -1,8 +1,7 @@
 import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
 
-const AnimatingButton = () => {
-
+const AnimatingButton = (props: any) => {
     const containerRef = useRef<any>(null);
     const btnRef = useRef<any>(null);
     const masterTimeline = gsap.timeline({})
@@ -15,7 +14,9 @@ const AnimatingButton = () => {
     }, [])
 
     return (
-        <div ref={containerRef} className='relative flex items-center justify-center w-fit cursor-pointer'>
+        <div onClick={() => {
+            props.onClick()
+        }} ref={containerRef} className='relative flex items-center justify-center w-fit cursor-pointer'>
             <div ref={btnRef} className='border-[1px] border-white rounded-[50%] w-[85px] h-[85px] p-[2px]'>
                 <div className='border-[5px] border-white rounded-[50%] w-full h-full'></div>
             </div>
