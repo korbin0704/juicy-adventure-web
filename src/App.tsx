@@ -39,7 +39,7 @@ function App() {
   const onVideoReady = () => {
     setTimeout(() => {
       setLoadingEnd(true)
-    }, 3)
+    }, 3000)
   }
 
   const getButtonPositionX = (p_initPercent: number) => {
@@ -93,11 +93,11 @@ function App() {
                 Let's Make Some Juice!
               </p>
             </div>
+            <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionX(getIsMobile() ? 69 : 59)}%`, top: `${getButtonPositionY(getIsMobile() ? 58 : 41)}%` }}>
+              <AnimatingButton />
+            </div>
           </div>
         }
-        <div className='fixed top-[0%] w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionX(useIsMobile() ? 69 : 59)}%`, top: `${getButtonPositionY(useIsMobile() ? 58 : 41)}%` }}>
-          <AnimatingButton />
-        </div>
       </div>
     </div>
   )

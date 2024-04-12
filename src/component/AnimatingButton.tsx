@@ -3,15 +3,19 @@ import { useEffect, useRef } from 'react';
 
 const AnimatingButton = () => {
 
+    const containerRef = useRef<any>(null);
     const btnRef = useRef<any>(null);
-    const masterTimeline = gsap.timeline({ repeat: -1 })
+    const masterTimeline = gsap.timeline({})
+    const loopTimeLine = gsap.timeline({ repeat: -1 })
 
     useEffect(() => {
-        masterTimeline.to(btnRef.current, { rotation: 0, scale: 1.3, duration: 2, delay: 0.5, opacity: 0.5, }).to(btnRef.current, { rotation: 0, scale: 1, duration: 2, delay: 0.5, opacity: 1, })
+        masterTimeline.from(containerRef.current, { opacity: 0, scale: 0, duration: 2, ease: "sine.in", delay: 3 }).then(() => {
+            loopTimeLine.to(btnRef.current, { rotation: 0, scale: 1.3, duration: 2, delay: 0.5, opacity: 0.5, }).to(btnRef.current, { rotation: 0, scale: 1, duration: 2, delay: 0.5, opacity: 1, })
+        })
     }, [])
 
     return (
-        <div className='relative flex items-center justify-center w-fit cursor-pointer'>
+        <div ref={containerRef} className='relative flex items-center justify-center w-fit cursor-pointer'>
             <div ref={btnRef} className='border-[1px] border-white rounded-[50%] w-[85px] h-[85px] p-[2px]'>
                 <div className='border-[5px] border-white rounded-[50%] w-full h-full'></div>
             </div>
