@@ -15,12 +15,13 @@ function App() {
   const step2Ref = useRef<any>(null);
   const step3Ref = useRef<any>(null);
   const step4Ref = useRef<any>(null);
+  const step5Ref = useRef<any>(null);
 
   const videoRef = useRef<any>(null);
   const logoRef = useRef<any>(null);
   const sloganRef = useRef<any>(null);
   const [loadingEnd, setLoadingEnd] = useState(false)
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(5)
 
   useEffect(() => {
   }, [])
@@ -48,15 +49,11 @@ function App() {
       gsap.from(step3Ref.current, { duration: 2, opacity: 0, delay: 1 })
     } else if (step == 4) {
       gsap.from(step4Ref.current, { duration: 2, opacity: 0, delay: 1 })
+    } else if (step == 5) {
+      gsap.from(step5Ref.current, { duration: 2, opacity: 0, delay: 1 })
     }
   }, [step])
 
-  const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
-    setTimeout(() => {
-      setLoadingEnd(true)
-      // videoRef.current.currentTime = 16
-    }, 3000)
-  }
 
   const getButtonPositionX = (p_initPercent: number) => {
     const ratio = getIsMobile() ? 1080 / 1920 : 1920 / 1080
@@ -111,6 +108,12 @@ function App() {
     }
   };
 
+  const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
+    setTimeout(() => {
+      setLoadingEnd(true)
+      videoRef.current.currentTime = 44
+    }, 300)
+  }
   const onNextStep = () => {
     if (step == 1) {
       gsap.to(step1Ref.current, { opacity: 0, duration: 2 })
@@ -125,6 +128,11 @@ function App() {
     } else if (step == 3) {
       gsap.to(step3Ref.current, { opacity: 0, duration: 2 })
       playFromTo(16, 28, () => {
+        setStep(step + 1)
+      });
+    } else if (step == 4) {
+      gsap.to(step4Ref.current, { opacity: 0, duration: 2 })
+      playFromTo(28, 44, () => {
         setStep(step + 1)
       });
     }
@@ -147,9 +155,9 @@ function App() {
               <div ref={step1Ref}>
                 <div className='mt-[72px] md:mt-[173px] flex flex-col items-center md:items-start'>
                   <img ref={logoRef} src='/img/img_juicy_logo.png' className='w-[242px] h-[128px] md:w-[448px] md:h-[237px] md:ml-[30px]' />
-                  <p ref={sloganRef} className='text-[20px] md:text-[32px] font-[700] text-white w-fit mt-[15px] md:mt-[44px] md:ml-[19px]'>
+                  <span ref={sloganRef} className='text-[20px] md:text-[32px] font-[700] text-white w-fit mt-[15px] md:mt-[44px] md:ml-[19px]'>
                     Let's Make Some Juice!
-                  </p>
+                  </span>
                 </div>
                 <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionX(getIsMobile() ? 69 : 59)}%`, top: `${getButtonPositionY(getIsMobile() ? 58 : 41)}%` }}>
                   <AnimatingButton initDelay={3} onClick={() => {
@@ -162,7 +170,7 @@ function App() {
             {step == 2 &&
               <div ref={step2Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100vh] md:pl-[220px] pt-[220px] md:pt-0'>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>A Splash {getIsMobile() ? "\n" : ""} of Magic Unleashed!</span>
-                <p className='text-[8px] md:text-[16px] font-light text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>A magical juice mixer landed on a peaceful island. <br />
+                <span className='text-[8px] md:text-[16px] font-light text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>A magical juice mixer landed on a peaceful island. <br />
                   The juices from it are not just delicious—they turn <br />
                   animals into humans and even grant them special powers.<br />
                   <br />
@@ -171,8 +179,8 @@ function App() {
                   <br />
                   The battle for the magical mixer is on,<br />
                   Knowing that a single sip can change the game.<br />
-                  Are you ready to juice it up?!</p>
-                <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionY(getIsMobile() ? 50 : 23)}%`, top: `${getButtonPositionY(getIsMobile() ? 30 : 50)}%` }}>
+                  Are you ready to juice it up?!</span>
+                <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionY(getIsMobile() ? 50 : 29)}%`, top: `${getButtonPositionY(getIsMobile() ? 30 : 50)}%` }}>
                   <AnimatingButton onClick={() => {
                     onNextStep()
                   }} />
@@ -183,11 +191,11 @@ function App() {
             {step == 3 &&
               <div ref={step3Ref} className='flex flex-col items-center md:items-end justify-center self-center h-[100vh] md:pr-[300px] pt-[220px] md:pt-0'>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>Be the last one {getIsMobile() ? "\n" : ""} survive in the battle!</span>
-                <p className='text-[8px] md:text-[16px] font-light text-white whitespace-pre-line mt-[3px]' style={{ textAlign: getIsMobile() ? "center" : "right" }}>
+                <span className='text-[8px] md:text-[16px] font-light text-white whitespace-pre-line mt-[3px]' style={{ textAlign: getIsMobile() ? "center" : "right" }}>
                   It is your time to shine in the battle.<br />
                   Find your ultimate combination of shooter and weapons to win.
-                </p>
-                <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionY(getIsMobile() ? 50 : 76)}%`, top: `${getButtonPositionY(getIsMobile() ? 25 : 35)}%` }}>
+                </span>
+                <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionY(getIsMobile() ? 50 : 71)}%`, top: `${getButtonPositionY(getIsMobile() ? 25 : 35)}%` }}>
                   <AnimatingButton onClick={() => {
                     onNextStep()
                   }} />
@@ -223,6 +231,30 @@ function App() {
                   <img src='/img/ic_character1.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' />
                   <img src='/img/ic_character2.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' />
                   <img src='/img/ic_character3.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' />
+                </div>
+              </div>
+            }
+
+
+            {step == 4 &&
+              <div ref={step4Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100vh] md:pl-[220px] pt-[220px] md:pt-0'>
+                <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>Watch Your Step!</span>
+                <span className='text-[8px] md:text-[16px] font-light text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>
+                  The battle's heating up, and it's not just about dodging enemies.<br />
+                  You've got to keep an eye on where you're stepping too!<br />
+                  <br />
+                  Falling off the edge? That's a real risk.<br />
+                  But hey, you can also use jumping boards to zip away from trouble.<br />
+                  So,use the map to your advantage, and aim to be the last one standing.
+                </span>
+                <img src='/img/img_step4.png' className='w-[263px] h-[125px] md:w-[643px] md:h-[306px] mt-[34px]' />
+                <span className='text-white text-[15px] mt-[12px] hidden md:flex self-center'>
+                  It's all about being smart and quick on your feet!
+                </span>
+                <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionY(getIsMobile() ? 50 : 29)}%`, top: `${getButtonPositionY(getIsMobile() ? 30 : 33)}%` }}>
+                  <AnimatingButton onClick={() => {
+                    onNextStep()
+                  }} />
                 </div>
               </div>
             }
