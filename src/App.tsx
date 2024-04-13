@@ -11,12 +11,13 @@ gsap.registerPlugin(useGSAP);
 
 function App() {
 
-  const videoRef = useRef<any>(null);
   const step1Ref = useRef<any>(null);
+  const step2Ref = useRef<any>(null);
+  const videoRef = useRef<any>(null);
   const logoRef = useRef<any>(null);
   const sloganRef = useRef<any>(null);
   const [loadingEnd, setLoadingEnd] = useState(false)
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(2)
 
   useEffect(() => {
   }, [])
@@ -40,7 +41,8 @@ function App() {
   const onVideoReady = () => {
     setTimeout(() => {
       setLoadingEnd(true)
-    }, 3000)
+      videoRef.current.current
+    }, 300)
   }
 
   const getButtonPositionX = (p_initPercent: number) => {
@@ -75,21 +77,40 @@ function App() {
     return res
   }
 
+  const playFromTo = (startTime: number, endTime: number, callback: Function) => {
+    const video = videoRef.current;
+    if (video) {
+      // Pause at a specific section
+      const pauseAtEnd = () => {
+        if (video.currentTime >= endTime) {
+          video.pause();
+          video.removeEventListener('timeupdate', pauseAtEnd);
+          callback()
+        }
+      };
+
+      // Register timeupdate event listener
+      video.addEventListener('timeupdate', pauseAtEnd);
+
+      // Go to start time and play
+      video.currentTime = startTime;
+      video.play();
+    }
+  };
+
   const onNextStep = () => {
     if (step == 1) {
-      videoRef.current.play()
       gsap.to(step1Ref.current, { opacity: 0, duration: 2 })
-      setTimeout(() => {
-        videoRef.current.pause()
+      playFromTo(0, 7, () => {
         setStep(step + 1)
-      }, 7000)
+      });
     }
   }
 
   return (
     <div className='flex flex-col'>
       <div className={loadingEnd ? 'fixed w-[100vw] h-[100vh]' : 'hidden'}>
-        <video ref={videoRef} src={useIsMobile() ? '/vid/adventure-mo.mp4' : '/vid/adventure-pc.mp4'} className='w-[100%] h-[100%] object-cover' onCanPlay={onVideoReady} />
+        <video ref={videoRef} src={true ? '/vid/adventure-mo.mp4' : '/vid/adventure-pc.mp4'} className='w-[100%] h-[100%] object-cover' onCanPlay={onVideoReady} />
       </div>
       <div className='z-1 relative w-full max-w-[1171px] self-center'>
         {!loadingEnd ?
@@ -112,6 +133,22 @@ function App() {
                     onNextStep()
                   }} />
                 </div>
+              </div>
+            }
+
+            {step == 2 &&
+              <div ref={step2Ref} className='flex flex-col items-start justify-center self-center'>
+                <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>A Splash {getIsMobile() ? "\n" : ""} of Magic Unleashed!</span>
+                <p className='text-[8px] md:text-[16px] font-light text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>A magical juice mixer landed on a peaceful island. <br />
+                  The juices from it are not just delicious—they turn <br />
+                  animals into humans and even grant them special powers.<br />
+                  <br />
+                  Now, this mixer is the most sought-after treasure,<br />
+                  and a fierce competition has started among the animals.<br />
+                  <br />
+                  The battle for the magical mixer is on,<br />
+                  Knowing that a single sip can change the game.<br />
+                  Are you ready to juice it up?!</p>
               </div>
             }
           </div>
