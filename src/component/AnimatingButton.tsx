@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
+import useIsMobile from '../hooks/useIsMobile';
 
 const AnimatingButton = (props: any) => {
     const containerRef = useRef<any>(null);
@@ -20,7 +21,7 @@ const AnimatingButton = (props: any) => {
             <div ref={btnRef} className='border-[1px] border-white rounded-[50%] w-[85px] h-[85px] p-[2px]'>
                 <div className='border-[5px] border-white rounded-[50%] w-full h-full'></div>
             </div>
-            <span className='absolute text-white text-[13px] font-medium rotate-[-12deg]'>Click</span>
+            <span className='absolute text-white text-[13px] font-medium rotate-[-12deg]'>{useIsMobile() ? "TOUCH!" : "CLICK!"}</span>
         </div>
     );
 };

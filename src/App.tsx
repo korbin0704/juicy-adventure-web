@@ -14,6 +14,8 @@ function App() {
   const step1Ref = useRef<any>(null);
   const step2Ref = useRef<any>(null);
   const step3Ref = useRef<any>(null);
+  const step4Ref = useRef<any>(null);
+
   const videoRef = useRef<any>(null);
   const logoRef = useRef<any>(null);
   const sloganRef = useRef<any>(null);
@@ -44,14 +46,16 @@ function App() {
       gsap.from(step2Ref.current, { duration: 2, opacity: 0, delay: 1 })
     } else if (step == 3) {
       gsap.from(step3Ref.current, { duration: 2, opacity: 0, delay: 1 })
+    } else if (step == 4) {
+      gsap.from(step4Ref.current, { duration: 2, opacity: 0, delay: 1 })
     }
   }, [step])
 
   const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
     setTimeout(() => {
       setLoadingEnd(true)
-      // videoRef.current.currentTime = 7
-    }, 300)
+      // videoRef.current.currentTime = 16
+    }, 3000)
   }
 
   const getButtonPositionX = (p_initPercent: number) => {
@@ -118,6 +122,11 @@ function App() {
       playFromTo(7, 16, () => {
         setStep(step + 1)
       });
+    } else if (step == 3) {
+      gsap.to(step3Ref.current, { opacity: 0, duration: 2 })
+      playFromTo(16, 28, () => {
+        setStep(step + 1)
+      });
     }
   }
 
@@ -167,6 +176,53 @@ function App() {
                   <AnimatingButton onClick={() => {
                     onNextStep()
                   }} />
+                </div>
+              </div>
+            }
+
+            {step == 3 &&
+              <div ref={step3Ref} className='flex flex-col items-center md:items-end justify-center self-center h-[100vh] md:pr-[300px] pt-[220px] md:pt-0'>
+                <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>Be the last one {getIsMobile() ? "\n" : ""} survive in the battle!</span>
+                <p className='text-[8px] md:text-[16px] font-light text-white whitespace-pre-line mt-[3px]' style={{ textAlign: getIsMobile() ? "center" : "right" }}>
+                  It is your time to shine in the battle.<br />
+                  Find your ultimate combination of shooter and weapons to win.
+                </p>
+                <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionY(getIsMobile() ? 50 : 76)}%`, top: `${getButtonPositionY(getIsMobile() ? 25 : 35)}%` }}>
+                  <AnimatingButton onClick={() => {
+                    onNextStep()
+                  }} />
+                </div>
+                <div className='flex flex-row items-center mt-[34px] md:mt-[42px] space-x-[8px] md:space-x-[13px]'>
+                  <div className='flex flex-col'>
+                    <img src='/img/ic_shooter.png' className='w-[60px] h-[60px] md:w-[115px] md:h-[115px]' />
+                    <div className='h-[35px] flex items-center justify-center text-white text-[10px] md:text-[15px] mt-[10px] text-center'>
+                      Shooter
+                    </div>
+                  </div>
+                  <span className='text-[25px] font-bold text-white'>
+                    +
+                  </span>
+                  <div className='flex flex-col'>
+                    <img src='/img/ic_blaster.png' className='w-[60px] h-[60px] md:w-[115px] md:h-[115px]' />
+                    <div className='h-[35px] flex items-center justify-center text-white text-[10px] md:text-[15px] mt-[10px] text-center'>
+                      Juice <br />Blaster
+                    </div>
+                  </div>
+                  <span className='text-[25px] font-bold text-white'>
+                    +
+                  </span>
+                  <div className='flex flex-col'>
+                    <img src='/img/ic_smasher.png' className='w-[60px] h-[60px] md:w-[115px] md:h-[115px]' />
+                    <div className='h-[35px] flex items-center justify-center text-white text-[10px] md:text-[15px] mt-[10px] text-center'>
+                      Smasher
+                    </div>
+                  </div>
+                </div>
+
+                <div className='flex flex-row items-center space-x-[-70px] md:space-x-[-150px] mt-[-20px] md:mr-[-100px]'>
+                  <img src='/img/ic_character1.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' />
+                  <img src='/img/ic_character2.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' />
+                  <img src='/img/ic_character3.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' />
                 </div>
               </div>
             }
