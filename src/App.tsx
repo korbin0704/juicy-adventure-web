@@ -13,11 +13,12 @@ function App() {
 
   const step1Ref = useRef<any>(null);
   const step2Ref = useRef<any>(null);
+  const step3Ref = useRef<any>(null);
   const videoRef = useRef<any>(null);
   const logoRef = useRef<any>(null);
   const sloganRef = useRef<any>(null);
   const [loadingEnd, setLoadingEnd] = useState(false)
-  const [step, setStep] = useState(2)
+  const [step, setStep] = useState(1)
 
   useEffect(() => {
   }, [])
@@ -38,10 +39,18 @@ function App() {
     }
   }, [loadingEnd])
 
-  const onVideoReady = () => {
+  useEffect(() => {
+    if (step == 2) {
+      gsap.from(step2Ref.current, { duration: 2, opacity: 0, delay: 1 })
+    } else if (step == 3) {
+      gsap.from(step3Ref.current, { duration: 2, opacity: 0, delay: 1 })
+    }
+  }, [step])
+
+  const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
     setTimeout(() => {
       setLoadingEnd(true)
-      videoRef.current.current
+      // videoRef.current.currentTime = 7
     }, 300)
   }
 
@@ -104,13 +113,18 @@ function App() {
       playFromTo(0, 7, () => {
         setStep(step + 1)
       });
+    } else if (step == 2) {
+      gsap.to(step2Ref.current, { opacity: 0, duration: 2 })
+      playFromTo(7, 16, () => {
+        setStep(step + 1)
+      });
     }
   }
 
   return (
     <div className='flex flex-col'>
       <div className={loadingEnd ? 'fixed w-[100vw] h-[100vh]' : 'hidden'}>
-        <video ref={videoRef} src={true ? '/vid/adventure-mo.mp4' : '/vid/adventure-pc.mp4'} className='w-[100%] h-[100%] object-cover' onCanPlay={onVideoReady} />
+        <video ref={videoRef} src={useIsMobile() ? '/vid/adventure-mo.mp4' : '/vid/adventure-pc.mp4'} className='w-[100%] h-[100%] object-cover' onCanPlay={() => { onVideoReady() }} />
       </div>
       <div className='z-1 relative w-full max-w-[1171px] self-center'>
         {!loadingEnd ?
@@ -129,7 +143,7 @@ function App() {
                   </p>
                 </div>
                 <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionX(getIsMobile() ? 69 : 59)}%`, top: `${getButtonPositionY(getIsMobile() ? 58 : 41)}%` }}>
-                  <AnimatingButton onClick={() => {
+                  <AnimatingButton initDelay={3} onClick={() => {
                     onNextStep()
                   }} />
                 </div>
@@ -137,7 +151,7 @@ function App() {
             }
 
             {step == 2 &&
-              <div ref={step2Ref} className='flex flex-col items-start justify-center self-center'>
+              <div ref={step2Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100vh] md:pl-[220px] pt-[220px] md:pt-0'>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>A Splash {getIsMobile() ? "\n" : ""} of Magic Unleashed!</span>
                 <p className='text-[8px] md:text-[16px] font-light text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>A magical juice mixer landed on a peaceful island. <br />
                   The juices from it are not just delicious—they turn <br />
@@ -149,6 +163,11 @@ function App() {
                   The battle for the magical mixer is on,<br />
                   Knowing that a single sip can change the game.<br />
                   Are you ready to juice it up?!</p>
+                <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionY(getIsMobile() ? 50 : 23)}%`, top: `${getButtonPositionY(getIsMobile() ? 30 : 50)}%` }}>
+                  <AnimatingButton onClick={() => {
+                    onNextStep()
+                  }} />
+                </div>
               </div>
             }
           </div>

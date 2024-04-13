@@ -8,7 +8,7 @@ const AnimatingButton = (props: any) => {
     const loopTimeLine = gsap.timeline({ repeat: -1 })
 
     useEffect(() => {
-        masterTimeline.from(containerRef.current, { opacity: 0, scale: 0, duration: 2, ease: "sine.in", delay: 3 }).then(() => {
+        masterTimeline.from(containerRef.current, { opacity: 0, scale: 0, duration: 2, ease: "sine.in", delay: props.initDelay ? props.initDelay : 0.5 }).then(() => {
             loopTimeLine.to(btnRef.current, { rotation: 0, scale: 1.3, duration: 2, delay: 0.5, opacity: 0.5, }).to(btnRef.current, { rotation: 0, scale: 1, duration: 2, delay: 0.5, opacity: 1, })
         })
     }, [])
