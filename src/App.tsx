@@ -6,8 +6,11 @@ import gsap from 'gsap';
 import { useGSAP } from "@gsap/react";
 import useIsMobile, { getIsMobile } from './hooks/useIsMobile';
 import AnimatingButton from './component/AnimatingButton';
+import { TextPlugin } from './vendor/gsap/TextPlugin';
+import StepTokenomics from './component/StepTokenomics';
 
 gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(TextPlugin)
 
 function App() {
 
@@ -16,12 +19,14 @@ function App() {
   const step3Ref = useRef<any>(null);
   const step4Ref = useRef<any>(null);
   const step5Ref = useRef<any>(null);
+  const step6Ref = useRef<any>(null);
 
   const videoRef = useRef<any>(null);
   const logoRef = useRef<any>(null);
   const sloganRef = useRef<any>(null);
+
   const [loadingEnd, setLoadingEnd] = useState(false)
-  const [step, setStep] = useState(5)
+  const [step, setStep] = useState(6)
 
   useEffect(() => {
   }, [])
@@ -51,6 +56,8 @@ function App() {
       gsap.from(step4Ref.current, { duration: 2, opacity: 0, delay: 1 })
     } else if (step == 5) {
       gsap.from(step5Ref.current, { duration: 2, opacity: 0, delay: 1 })
+    } else if (step == 6) {
+      gsap.from(step6Ref.current, { duration: 2, opacity: 0, delay: 1 })
     }
   }, [step])
 
@@ -111,7 +118,7 @@ function App() {
   const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
     setTimeout(() => {
       setLoadingEnd(true)
-      videoRef.current.currentTime = 44
+      videoRef.current.currentTime = 47
     }, 300)
   }
   const onNextStep = () => {
@@ -133,6 +140,11 @@ function App() {
     } else if (step == 4) {
       gsap.to(step4Ref.current, { opacity: 0, duration: 2 })
       playFromTo(28, 44, () => {
+        setStep(step + 1)
+      });
+    } else if (step == 5) {
+      gsap.to(step5Ref.current, { opacity: 0, duration: 2 })
+      playFromTo(44, 47, () => {
         setStep(step + 1)
       });
     }
@@ -170,7 +182,7 @@ function App() {
             {step == 2 &&
               <div ref={step2Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100vh] md:pl-[220px] pt-[220px] md:pt-0'>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>A Splash {getIsMobile() ? "\n" : ""} of Magic Unleashed!</span>
-                <span className='text-[8px] md:text-[16px] font-light text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>A magical juice mixer landed on a peaceful island. <br />
+                <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>A magical juice mixer landed on a peaceful island. <br />
                   The juices from it are not just delicious—they turn <br />
                   animals into humans and even grant them special powers.<br />
                   <br />
@@ -191,7 +203,7 @@ function App() {
             {step == 3 &&
               <div ref={step3Ref} className='flex flex-col items-center md:items-end justify-center self-center h-[100vh] md:pr-[300px] pt-[220px] md:pt-0'>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>Be the last one {getIsMobile() ? "\n" : ""} survive in the battle!</span>
-                <span className='text-[8px] md:text-[16px] font-light text-white whitespace-pre-line mt-[3px]' style={{ textAlign: getIsMobile() ? "center" : "right" }}>
+                <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[3px]' style={{ textAlign: getIsMobile() ? "center" : "right" }}>
                   It is your time to shine in the battle.<br />
                   Find your ultimate combination of shooter and weapons to win.
                 </span>
@@ -239,7 +251,7 @@ function App() {
             {step == 4 &&
               <div ref={step4Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100vh] md:pl-[220px] pt-[220px] md:pt-0'>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>Watch Your Step!</span>
-                <span className='text-[8px] md:text-[16px] font-light text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>
+                <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>
                   The battle's heating up, and it's not just about dodging enemies.<br />
                   You've got to keep an eye on where you're stepping too!<br />
                   <br />
@@ -258,6 +270,31 @@ function App() {
                 </div>
               </div>
             }
+
+
+            {step == 5 &&
+              <div ref={step5Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100vh] md:pl-[400px] pt-[220px] md:pt-0'>
+                <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>Your Juice is ready!</span>
+                <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>
+                  This juice can trn turn animals into humans<br />
+                  and even grant them special powers...<br />
+                  <br />
+                  Now you are ready for the Juicy Adventure!
+                </span>
+                <div className='fixed w-[50px] h-[50px] flex items-center justify-center bottom-[30px] cursor-pointer' style={{}} onClick={() => {
+                  onNextStep()
+                }}>
+                  <img src='/img/ic_scroll_down.png' className='w-[45px] h-[45px]' />
+                </div>
+              </div>
+            }
+
+            {step == 6 &&
+              <div ref={step6Ref}>
+                <StepTokenomics />
+              </div>
+            }
+
           </div>
         }
       </div>
