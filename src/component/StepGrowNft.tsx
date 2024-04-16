@@ -18,7 +18,6 @@ const StepGrowNft = ({ onNextStep }: Props) => {
     const mickey5Ref = useRef<any>(null);
     const mickey6Ref = useRef<any>(null);
     const mickey7Ref = useRef<any>(null);
-    const scrollDownBtnRef = useRef<any>(null);
 
     useEffect(() => {
         setTimeout(() => {
@@ -70,13 +69,6 @@ const StepGrowNft = ({ onNextStep }: Props) => {
                 <img ref={mickey5Ref} src='/img/img_mickey.png' className='w-[114px] h-[131px] md:w-[219px] md:h-[253px] mt-[27px] md:mt-[38px] z-30' style={{ opacity: 0 }} />
                 <img ref={mickey7Ref} src='/img/img_mickey.png' className='w-[91px] h-[105px] md:w-[176px] md:h-[201px]' style={{ opacity: 0 }} />
             </div>
-
-            {/* <div ref={scrollDownBtnRef} style={{ opacity: 0 }}
-                className='fixed w-[50px] h-[50px] flex items-center justify-center bottom-[30px] cursor-pointer left-[50%]  ml-[-25px]' onClick={() => {
-                    onNextStep()
-                }}>
-                <img src='/img/ic_scroll_down.png' className='w-[45px] h-[45px]' />
-            </div> */}
         </div>
     );
 };

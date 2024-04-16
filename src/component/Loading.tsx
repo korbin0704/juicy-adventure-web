@@ -16,8 +16,9 @@ const Loading = () => {
     }, [])
 
     return (
-        <div className='flex flex-col items-center pt-[50vh]'>
-            <div className='flex flex-row items-center space-x-[7px]'>
+        <div className='flex flex-col items-center'>
+            <img src='/img/ic_grape.gif' className='mt-[30px]' />
+            <div className='flex flex-row items-center space-x-[7px] '>
                 {Array(6).fill(0).map((it, idx) => {
                     return (
                         <div key={idx} className={clock % 7 > idx ? 'w-[24px] h-[24px] border-[3px] bg-[white] border-[white]' : 'w-[24px] h-[24px] border-[3px] border-[white]'}>

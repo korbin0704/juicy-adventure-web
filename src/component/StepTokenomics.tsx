@@ -18,8 +18,8 @@ const StepTokenomics = ({ onNextStep }: Props) => {
     useEffect(() => {
         setTimeout(() => {
             gsap.timeline({})
-                .to(tokenomicsTxtRef1.current, { duration: 2, text: "Tokenomics:" })
-                .to(tokenomicsTxtRef2.current, { duration: 2, text: "Add Fun to Play" })
+                .to(tokenomicsTxtRef1.current, { duration: 1, text: "Tokenomics:" })
+                .to(tokenomicsTxtRef2.current, { duration: 1, text: "Add Fun to Play" })
                 .to(subTitleRef.current, {
                     duration: 1, ease: "expo.out",
                     y: -20,

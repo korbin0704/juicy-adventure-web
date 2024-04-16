@@ -28,7 +28,7 @@ function App() {
   const sloganRef = useRef<any>(null);
 
   const [loadingEnd, setLoadingEnd] = useState(false)
-  const [step, setStep] = useState(7)
+  const [step, setStep] = useState(1)
 
   useEffect(() => {
   }, [])
@@ -120,8 +120,8 @@ function App() {
   const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
     setTimeout(() => {
       setLoadingEnd(true)
-      videoRef.current.currentTime = 52
-    }, 300)
+      // videoRef.current.currentTime = 52
+    }, 2000)
   }
   const onNextStep = () => {
     if (step == 1) {
@@ -151,8 +151,8 @@ function App() {
       });
     } else if (step == 6) {
       gsap.to(step6Ref.current, { opacity: 0, duration: 2 })
-      playFromTo(47, 52, () => {
-        playFromTo(52, 56, undefined)
+      playFromTo(47, 50, () => {
+        playFromTo(50, 56, undefined)
         setStep(step + 1)
       });
     }
@@ -281,7 +281,11 @@ function App() {
 
 
             {step == 5 &&
-              <div ref={step5Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100vh] md:pl-[400px] pt-[220px] md:pt-0'>
+              <div ref={step5Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100vh] md:pl-[400px] pt-[220px] md:pt-0' onWheel={(e) => {
+                if (e.deltaY > 0) {
+                  onNextStep()
+                }
+              }}>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>Your Juice is ready!</span>
                 <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>
                   This juice can trn turn animals into humans<br />
@@ -299,7 +303,7 @@ function App() {
 
             {step == 6 &&
               <div ref={step6Ref} onWheel={(e) => {
-                if(e.deltaY > 0) {
+                if (e.deltaY > 0) {
                   onNextStep()
                 }
               }}>
