@@ -27,16 +27,16 @@ const StepGrowNft = ({ onNextStep }: Props) => {
                     gsap.timeline().to(subTitleRef.current, { duration: 3, ease: "expo.out", opacity: 1, });
                     gsap.timeline().to(descRef.current, { duration: 3, ease: "expo.out", opacity: 1, });
                     gsap.timeline()
-                        .to(mickey1Ref.current, { duration: 3, ease: "expo.out", opacity: 1, })
+                        .to(mickey1Ref.current, { duration: 1, ease: "expo.out", opacity: 1, })
                         .then(() => {
-                            gsap.timeline().to(mickey2Ref.current, { duration: 3, ease: "expo.out", opacity: 1, });
-                            gsap.timeline().to(mickey3Ref.current, { duration: 3, ease: "expo.out", opacity: 1, })
+                            gsap.timeline().to(mickey2Ref.current, { duration: 1, ease: "expo.out", opacity: 1, });
+                            gsap.timeline().to(mickey3Ref.current, { duration: 1, ease: "expo.out", opacity: 1, })
                                 .then(() => {
-                                    gsap.timeline().to(mickey4Ref.current, { duration: 3, ease: "expo.out", opacity: 1, });
-                                    gsap.timeline().to(mickey5Ref.current, { duration: 3, ease: "expo.out", opacity: 1, })
+                                    gsap.timeline().to(mickey4Ref.current, { duration: 1, ease: "expo.out", opacity: 1, });
+                                    gsap.timeline().to(mickey5Ref.current, { duration: 1, ease: "expo.out", opacity: 1, })
                                         .then(() => {
-                                            gsap.timeline().to(mickey6Ref.current, { duration: 3, ease: "expo.out", opacity: 1, });
-                                            gsap.timeline().to(mickey7Ref.current, { duration: 3, ease: "expo.out", opacity: 1, });
+                                            gsap.timeline().to(mickey6Ref.current, { duration: 1, ease: "expo.out", opacity: 1, });
+                                            gsap.timeline().to(mickey7Ref.current, { duration: 1, ease: "expo.out", opacity: 1, });
                                         })
                                 })
                         })

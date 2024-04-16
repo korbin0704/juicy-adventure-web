@@ -9,6 +9,9 @@ import AnimatingButton from './component/AnimatingButton';
 import { TextPlugin } from './vendor/gsap/TextPlugin';
 import StepTokenomics from './component/StepTokenomics';
 import StepGrowNft from './component/StepGrowNft';
+import dayjs from 'dayjs';
+import { leftPad } from './common/utils';
+import { AIRDROP_EVENT_LINK, EVENT_STARTS_AT } from './common/constant';
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(TextPlugin)
@@ -22,15 +25,27 @@ function App() {
   const step5Ref = useRef<any>(null);
   const step6Ref = useRef<any>(null);
   const step7Ref = useRef<any>(null);
+  const step8Ref = useRef<any>(null);
+  const footerRef = useRef<any>(null);
 
   const videoRef = useRef<any>(null);
+  const timerRef = useRef<any>(null);
   const logoRef = useRef<any>(null);
   const sloganRef = useRef<any>(null);
 
   const [loadingEnd, setLoadingEnd] = useState(false)
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(8)
+  const [showFooter, setShowFooter] = useState(false)
+  const [remainedAirdropSeconds, setRemainedAirdropSeconds] = useState<number>(0)
+  let timer: any = null;
 
   useEffect(() => {
+    startAirDropTimer()
+    return () => {
+      if (timer) {
+        clearInterval(timer)
+      }
+    }
   }, [])
 
   useEffect(() => {
@@ -46,6 +61,7 @@ function App() {
       });
       gsap.from(sloganRef.current, { rotate: 360, ease: "sine.in", y: -880, duration: 1, opacity: 0, delay: 2.5 })
       gsap.from(logoRef.current, { ease: "bounce.out", y: -550, duration: 1, opacity: 0, delay: 3.5 })
+      gsap.from(timerRef.current, { duration: 1, opacity: 0, delay: 1 })
     }
   }, [loadingEnd])
 
@@ -60,9 +76,15 @@ function App() {
       gsap.from(step5Ref.current, { duration: 2, opacity: 0, delay: 1 })
     } else if (step == 6) {
       gsap.from(step6Ref.current, { duration: 2, opacity: 0, delay: 1 })
+    } else if (step == 8) {
+      gsap.from(step8Ref.current, { duration: 1, opacity: 0, delay: 1 })
     }
   }, [step])
 
+  useEffect(() => {
+    if (showFooter)
+      gsap.from(footerRef.current, { y: 20, duration: 1, opacity: 0, delay: 0 })
+  }, [showFooter])
 
   const getButtonPositionX = (p_initPercent: number) => {
     const ratio = getIsMobile() ? 1080 / 1920 : 1920 / 1080
@@ -120,8 +142,8 @@ function App() {
   const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
     setTimeout(() => {
       setLoadingEnd(true)
-      // videoRef.current.currentTime = 52
-    }, 2000)
+      videoRef.current.currentTime = 52
+    }, 2)
   }
   const onNextStep = () => {
     if (step == 1) {
@@ -155,7 +177,20 @@ function App() {
         playFromTo(50, 56, undefined)
         setStep(step + 1)
       });
+    } else if (step == 7) {
+      gsap.to(step6Ref.current, { opacity: 0, duration: 2 })
+      setStep(step + 1)
     }
+  }
+
+  const startAirDropTimer = () => {
+    if (timer) {
+      clearInterval(timer)
+    }
+    timer = setInterval(() => {
+      const secs = Math.round(dayjs(EVENT_STARTS_AT).diff(dayjs(), "seconds"))
+      setRemainedAirdropSeconds(Math.max(0, secs))
+    }, 1000);
   }
 
   return (
@@ -169,7 +204,7 @@ function App() {
           :
           <div className='flex flex-col'>
             <div className='absolute w-full z-[10]'>
-              <Header />
+              <Header remainedAirdropSeconds={remainedAirdropSeconds} />
             </div>
             {step == 1 &&
               <div ref={step1Ref}>
@@ -323,6 +358,81 @@ function App() {
               </div>
             }
 
+            {step == 8 &&
+              <div ref={step8Ref} onWheel={() => {
+                setShowFooter(true)
+              }}>
+                <div className='flex flex-col items-center justify-center self-center h-[100vh]'>
+                  <span className='text-white text-[24px] md:text-[32px] font-bold whitespace-pre-line text-center mt-[-150px] md:mt-0'>
+                    Upgrade your{getIsMobile() && "\n"} shooter NFTs<br />
+                    Squeeze your way{getIsMobile() && "\n"} to victory
+                  </span>
+                  <span className='text-white text-[48px] leading-[48px] md:text-[100px] md:leading-[124px] font-bold whitespace-pre-line text-center mt-[77px] md:mt-[68px]'>
+                    {parseInt((Math.max(0, remainedAirdropSeconds) / (24 * 3600)).toString())}D&nbsp;
+                    {getIsMobile() ? <br /> : ""}
+                    {leftPad(parseInt(((Math.max(0, remainedAirdropSeconds) % (24 * 3600)) / 3600).toString()), 2)}
+                    :
+                    {leftPad(parseInt(((Math.max(0, remainedAirdropSeconds) % 3600) / 60).toString()), 2)}
+                    :
+                    {leftPad(parseInt((Math.max(0, remainedAirdropSeconds) % 60).toString()), 2)}
+                  </span>
+                  <div
+                    onClick={() => {
+                      if (remainedAirdropSeconds <= 0) {
+                        window.open(AIRDROP_EVENT_LINK, "_blank")
+                      }
+                    }}
+                    className={remainedAirdropSeconds > 0
+                      ?
+                      'flex flex-row bg-[#ADADAD] rounded-[20px] w-[250px] h-[40px] items-center justify-center self-center absolute bottom-[70px] md:sticky md:mt-[18px]'
+                      :
+                      'flex flex-row bg-[#B9269E] rounded-[20px] w-[250px] h-[40px] items-center justify-center self-center cursor-pointer absolute bottom-[70px] md:sticky md:mt-[18px]'
+                    }>
+                    {remainedAirdropSeconds > 0 &&
+                      <img src='/img/ic_lock.png' className='w-[25px] h-[25px]' />
+                    }
+                    <span className='text-[15px] text-white ml-[4px] leading-[18px]'>
+                      Go to Airdrop Event
+                    </span>
+                  </div>
+                  {showFooter &&
+                    <div ref={footerRef} className='absolute bottom-[40px] hidden md:flex flex-col items-center'>
+                      <span className='text-white text-[13px]'>Copyright ⓒ 2023 by GRAMPUS CWC PTE. LTD. All rights reserved. </span>
+                      <span className='text-white text-[13px] mt-[10px]'>
+                        <a target="_blank" className='text-white no-underline' href='https://cdn.norma.land/policy/TermsofUse_EN.html'>Terms of service</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a target="_blank" className='text-white no-underline' href='https://cdn.norma.land/policy/PrivacyPolicy_EN.html'>Privacy policy</a>
+                      </span>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+
+            <div ref={timerRef} className='fixed bottom-[30px] right-0 md:right-[30px]'>
+              {remainedAirdropSeconds ?
+                <img src={'img/ic_countdown.png'} className='w-[294px] h-[166px] md:w-[406px] md:h-[229px]' />
+                :
+                <img src={'img/ic_eventopen.png'} className='w-[294px] h-[166px] md:w-[406px] md:h-[229px] cursor-pointer' onClick={() => {
+
+                }} />
+              }
+              {remainedAirdropSeconds > 0 &&
+                <div className='absolute inset-0 whitespace-pre-line'>
+                  <span className='absolute right-[67px] top-[84px] md:right-[98px] md:top-[115px] w-[30px] text-center text-black text-[10px] md:text-[14px] font-bold'>
+                    {parseInt((Math.max(0, remainedAirdropSeconds) / (24 * 3600)).toString())}
+                  </span>
+                  {getIsMobile() ? <br /> : ""}
+                  <span className='absolute right-[13px] top-[86px] md:right-[18px] md:top-[120px] w-[58px] md:w-[78px] text-center text-black text-[9px] md:text-[12px] font-bold'>
+                    {leftPad(parseInt(((Math.max(0, remainedAirdropSeconds) % (24 * 3600)) / 3600).toString()), 2)}
+                    :
+                    {leftPad(parseInt(((Math.max(0, remainedAirdropSeconds) % 3600) / 60).toString()), 2)}
+                    :
+                    {leftPad(parseInt((Math.max(0, remainedAirdropSeconds) % 60).toString()), 2)}
+                  </span>
+                </div>
+              }
+            </div>
           </div>
         }
       </div>

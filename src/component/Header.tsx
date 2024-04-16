@@ -3,7 +3,11 @@ import Collapse from 'react-bootstrap/Collapse';
 import { getIsMobile } from '../hooks/useIsMobile';
 import gsap from 'gsap';
 
-const Header = (props: any) => {
+type Props = {
+    remainedAirdropSeconds: number
+}
+
+const Header = ({ remainedAirdropSeconds }: Props) => {
     const [showPcMenu, setShowPcMenu] = useState(false)
     const [showMobMenu, setShowMobMenu] = useState(false)
     const menuRef = useRef<any>(null);
@@ -55,8 +59,15 @@ const Header = (props: any) => {
                         <div className='flex flex-col h-[100vh] px-[14px] py-[12px] bg-[#1D1D1D] rounded-tr-[9px] w-[200px]'>
                             <img src='/img/ic_arrow_left.svg' className='w-[24px] h-[24px] cursor-pointer' onClick={onMenu} />
                             <img src='/img/img_juicy_logo.png' className='w-[130px] h-[70px] mt-[22px] self-center' />
-                            <div className='flex flex-row mt-[25px] bg-[#B9269E] rounded-[30px] w-[114px] h-[17px] items-center justify-center self-center'>
-                                <img src='/img/ic_lock.png' className='w-[9px] h-[9px]' onClick={onMenu} />
+                            <div
+                                className={remainedAirdropSeconds > 0
+                                    ?
+                                    'flex flex-row mt-[25px] bg-[#ADADAD] rounded-[30px] w-[114px] h-[17px] items-center justify-center self-center'
+                                    :
+                                    'flex flex-row mt-[25px] bg-[#B9269E] rounded-[30px] w-[114px] h-[17px] items-center justify-center self-center'}>
+                                {remainedAirdropSeconds > 0 &&
+                                    <img src='/img/ic_lock.png' className='w-[9px] h-[9px]' />
+                                }
                                 <span className='text-[6px] text-white ml-[4px]'>
                                     Go to Airdrop Event
                                 </span>
@@ -81,7 +92,7 @@ const Header = (props: any) => {
                                 <img src='/img/ic_discord.png' className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] cursor-pointer' />
                             </div>
                             <span className='text-[6px] font-[300] text-white mt-[10px]'>
-                                ⓒ 2024 by GRAMPUS CWC PTE. LTD.<br/>
+                                ⓒ 2024 by GRAMPUS CWC PTE. LTD.<br />
                                 All rights reserved.<br />
                                 <br />
                                 Terms of Condition  I  Private Policy
