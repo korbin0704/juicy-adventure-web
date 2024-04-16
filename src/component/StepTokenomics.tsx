@@ -82,10 +82,12 @@ const StepTokenomics = ({ onNextStep }: Props) => {
             </div>
 
             <div ref={btnRef} style={{ opacity: 0 }}
-                className='flex items-center justify-center w-[210px] h-[33px] md:w-[295px] md:h-[40px] text-white text-[11px] md:text-[15px] text-center bg-[#B9269E] rounded-[16px] md:rounded-[20px] mt-[76px] md:mt-[35px] cursor-pointer'>
-                <span className='whitespace-pre-line leading-[11px] md:leading-[15px]'>
-                    All about <span className='font-bold'>GRAM</span>{getIsMobile() && "\n"} ecosystem
-                </span>
+                className='flex items-center justify-center w-[210px] h-[33px] md:w-[295px] md:h-[40px] text-white text-[11px] md:text-[15px] text-center bg-[#B9269E] rounded-[16px] md:rounded-[20px] mt-[76px] md:mt-[35px] cursor-pointer z-10'>
+                <a target='_blank' className='text-white no-underline' href='https://grampus-cwc.gitbook.io/gram_voyage/tokenomics/governance-token-usdgram-token'>
+                    <span className='whitespace-pre-line leading-[11px] md:leading-[15px]'>
+                        All about <span className='font-bold'>GRAM</span>{getIsMobile() && "\n"} ecosystem
+                    </span>
+                </a>
             </div>
 
             <div ref={scrollDownBtnRef} style={{ opacity: 0 }}

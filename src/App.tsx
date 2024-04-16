@@ -34,7 +34,7 @@ function App() {
   const sloganRef = useRef<any>(null);
 
   const [loadingEnd, setLoadingEnd] = useState(false)
-  const [step, setStep] = useState(8)
+  const [step, setStep] = useState(1)
   const [showFooter, setShowFooter] = useState(false)
   const [remainedAirdropSeconds, setRemainedAirdropSeconds] = useState<number>(0)
   let timer: any = null;
@@ -142,7 +142,7 @@ function App() {
   const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
     setTimeout(() => {
       setLoadingEnd(true)
-      videoRef.current.currentTime = 52
+      // videoRef.current.currentTime = 52
     }, 2)
   }
   const onNextStep = () => {
@@ -204,7 +204,7 @@ function App() {
           :
           <div className='flex flex-col'>
             <div className='absolute w-full z-[10]'>
-              <Header remainedAirdropSeconds={remainedAirdropSeconds} />
+              <Header remainedAirdropSeconds={remainedAirdropSeconds} onGoToStep={(step: number) => { setStep(step); }} />
             </div>
             {step == 1 &&
               <div ref={step1Ref}>
@@ -359,7 +359,7 @@ function App() {
             }
 
             {step == 8 &&
-              <div ref={step8Ref} onWheel={() => {
+              <div className='z-10' ref={step8Ref} onWheel={() => {
                 setShowFooter(true)
               }}>
                 <div className='flex flex-col items-center justify-center self-center h-[100vh]'>

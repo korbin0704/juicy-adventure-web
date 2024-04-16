@@ -2,12 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import Collapse from 'react-bootstrap/Collapse';
 import { getIsMobile } from '../hooks/useIsMobile';
 import gsap from 'gsap';
+import { DISCORD_LINK, WHITE_PAPER_LINK, X_LINK } from '../common/constant';
 
 type Props = {
     remainedAirdropSeconds: number
+    onGoToStep: Function
 }
 
-const Header = ({ remainedAirdropSeconds }: Props) => {
+const Header = ({ remainedAirdropSeconds, onGoToStep }: Props) => {
     const [showPcMenu, setShowPcMenu] = useState(false)
     const [showMobMenu, setShowMobMenu] = useState(false)
     const menuRef = useRef<any>(null);
@@ -35,20 +37,35 @@ const Header = ({ remainedAirdropSeconds }: Props) => {
                 <div ref={menuRef} className='flex flex-row justify-between items-center px-[20px] md:px-0 py-[11px] md:py-[16px]'>
                     <img src='/img/ic_menu.svg' className='w-[40px] h-[40px] md:w-[40px] md:h-[40px] cursor-pointer' onClick={onMenu} />
                     <div className='hidden md:flex flex-row items-center space-x-[26px]'>
-                        <img src='/img/ic_white_paper.png' className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] cursor-pointer' />
-                        <img src='/img/ic_x.png' className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] cursor-pointer' />
-                        <img src='/img/ic_discord.png' className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] cursor-pointer' />
+                        <a target='_blank' href={WHITE_PAPER_LINK}>
+                            <img src='/img/ic_white_paper.png' className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] cursor-pointer' />
+                        </a>
+                        <a target='_blank' href={X_LINK}>
+                            <img src='/img/ic_x.png' className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] cursor-pointer' />
+                        </a>
+                        <a target='_blank' href={DISCORD_LINK}>
+                            <img src='/img/ic_discord.png' className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] cursor-pointer' />
+                        </a>
                     </div>
                 </div>
                 <Collapse in={showPcMenu}>
                     <div className='flex flex-col px-[14px] w-fit space-y-[10px]'>
-                        <div>
+                        <div onClick={() => {
+                            onMenu()
+                            onGoToStep(2)
+                        }}>
                             <span className='text-[white] text-[16px] cursor-pointer hover:font-bold mb-0'>Game Features</span>
                         </div>
-                        <div>
+                        <div onClick={() => {
+                            onMenu()
+                            onGoToStep(6)
+                        }}>
                             <span className='text-[white] text-[16px] cursor-pointer hover:font-bold mb-0'>Tokenomics</span>
                         </div>
-                        <div>
+                        <div onClick={() => {
+                            onMenu()
+                            onGoToStep(8)
+                        }}>
                             <span className='text-[white] text-[16px] cursor-pointer hover:font-bold mb-0'>NFT</span>
                         </div>
                     </div>
@@ -73,13 +90,22 @@ const Header = ({ remainedAirdropSeconds }: Props) => {
                                 </span>
                             </div>
                             <div className='flex flex-col mt-[42px] space-y-[10px]'>
-                                <div>
+                                <div onClick={() => {
+                                    onMenu()
+                                    onGoToStep(2)
+                                }}>
                                     <span className='text-[white] text-[15px] cursor-pointer mb-0'>Game Features</span>
                                 </div>
-                                <div>
+                                <div onClick={() => {
+                                    onMenu()
+                                    onGoToStep(6)
+                                }}>
                                     <span className='text-[white] text-[15px] cursor-pointer mb-0'>Tokenomics</span>
                                 </div>
-                                <div>
+                                <div onClick={() => {
+                                    onMenu()
+                                    onGoToStep(8)
+                                }}>
                                     <span className='text-[white] text-[15px] cursor-pointer mb-0'>NFT</span>
                                 </div>
                             </div>
@@ -87,9 +113,15 @@ const Header = ({ remainedAirdropSeconds }: Props) => {
                             <div className="flex-1" />
 
                             <div className='flex flex-row items-center space-x-[26px]'>
-                                <img src='/img/ic_white_paper.png' className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] cursor-pointer' />
-                                <img src='/img/ic_x.png' className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] cursor-pointer' />
-                                <img src='/img/ic_discord.png' className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] cursor-pointer' />
+                                <a target='_blank' href={WHITE_PAPER_LINK}>
+                                    <img src='/img/ic_white_paper.png' className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] cursor-pointer' />
+                                </a>
+                                <a target='_blank' href={X_LINK}>
+                                    <img src='/img/ic_x.png' className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] cursor-pointer' />
+                                </a>
+                                <a target='_blank' href={DISCORD_LINK}>
+                                    <img src='/img/ic_discord.png' className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] cursor-pointer' />
+                                </a>
                             </div>
                             <span className='text-[6px] font-[300] text-white mt-[10px]'>
                                 ⓒ 2024 by GRAMPUS CWC PTE. LTD.<br />
