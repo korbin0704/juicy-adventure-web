@@ -119,7 +119,7 @@ function App() {
 
   const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
     setTimeout(() => {
-      setLoadingEnd(true)
+      // setLoadingEnd(true)
       // videoRef.current.currentTime = 52
     }, 2000)
   }
