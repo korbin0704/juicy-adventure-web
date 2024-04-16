@@ -8,6 +8,7 @@ import useIsMobile, { getIsMobile } from './hooks/useIsMobile';
 import AnimatingButton from './component/AnimatingButton';
 import { TextPlugin } from './vendor/gsap/TextPlugin';
 import StepTokenomics from './component/StepTokenomics';
+import StepGrowNft from './component/StepGrowNft';
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(TextPlugin)
@@ -20,13 +21,14 @@ function App() {
   const step4Ref = useRef<any>(null);
   const step5Ref = useRef<any>(null);
   const step6Ref = useRef<any>(null);
+  const step7Ref = useRef<any>(null);
 
   const videoRef = useRef<any>(null);
   const logoRef = useRef<any>(null);
   const sloganRef = useRef<any>(null);
 
   const [loadingEnd, setLoadingEnd] = useState(false)
-  const [step, setStep] = useState(6)
+  const [step, setStep] = useState(7)
 
   useEffect(() => {
   }, [])
@@ -94,7 +96,7 @@ function App() {
     return res
   }
 
-  const playFromTo = (startTime: number, endTime: number, callback: Function) => {
+  const playFromTo = (startTime: number, endTime: number, callback: Function | undefined) => {
     const video = videoRef.current;
     if (video) {
       // Pause at a specific section
@@ -102,7 +104,7 @@ function App() {
         if (video.currentTime >= endTime) {
           video.pause();
           video.removeEventListener('timeupdate', pauseAtEnd);
-          callback()
+          callback?.()
         }
       };
 
@@ -118,7 +120,7 @@ function App() {
   const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
     setTimeout(() => {
       setLoadingEnd(true)
-      videoRef.current.currentTime = 47
+      videoRef.current.currentTime = 52
     }, 300)
   }
   const onNextStep = () => {
@@ -145,6 +147,12 @@ function App() {
     } else if (step == 5) {
       gsap.to(step5Ref.current, { opacity: 0, duration: 2 })
       playFromTo(44, 47, () => {
+        setStep(step + 1)
+      });
+    } else if (step == 6) {
+      gsap.to(step6Ref.current, { opacity: 0, duration: 2 })
+      playFromTo(47, 52, () => {
+        playFromTo(52, 56, undefined)
         setStep(step + 1)
       });
     }
@@ -290,8 +298,24 @@ function App() {
             }
 
             {step == 6 &&
-              <div ref={step6Ref}>
-                <StepTokenomics />
+              <div ref={step6Ref} onWheel={(e) => {
+                if(e.deltaY > 0) {
+                  onNextStep()
+                }
+              }}>
+                <StepTokenomics onNextStep={() => {
+                  onNextStep()
+                }} />
+              </div>
+            }
+
+            {step == 7 &&
+              <div ref={step7Ref} onWheel={() => {
+                onNextStep()
+              }}>
+                <StepGrowNft onNextStep={() => {
+                  onNextStep()
+                }} />
               </div>
             }
 

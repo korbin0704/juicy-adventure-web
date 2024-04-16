@@ -2,7 +2,11 @@ import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
 import { getIsMobile } from '../hooks/useIsMobile';
 
-const StepTokenomics = (props: any) => {
+type Props = {
+    onNextStep: Function
+}
+
+const StepTokenomics = ({ onNextStep }: Props) => {
     const tokenomicsTxtRef1 = useRef<any>(null);
     const tokenomicsTxtRef2 = useRef<any>(null);
     const subTitleRef = useRef<any>(null);
@@ -51,7 +55,7 @@ const StepTokenomics = (props: any) => {
                 {getIsMobile() ? "\n" : <span className='mx-[6px]' />}
                 <span ref={tokenomicsTxtRef2} className='text-[24px] md:text-[42px] text-white font-bold text-center'></span>
             </span>
-            <span ref={subTitleRef} className='text-[13px] md:text-[25px] text-white mt-[17px] md:mt-[41px] text-center' style={{ opacity: 0 }}>Earn $JELLY as You Play</span>
+            <span ref={subTitleRef} className='text-[13px] md:text-[25px] text-white mt-[37px] md:mt-[41px] text-center' style={{ opacity: 0 }}>Earn $JELLY as You Play</span>
             <div ref={descRef} className='text-[8px] md:text-[16px] text-white font-extralight mt-[17px] md:mt-[41px] text-center whitespace-pre-line' style={{ opacity: 0 }}>
                 Victory tastes sweet, {getIsMobile() && "\n"}especially when you're crowned the winner of the battle!<br />
                 As you climb the ranks, you'll be rewarded with Jelly tokens.<br />
@@ -86,6 +90,7 @@ const StepTokenomics = (props: any) => {
 
             <div ref={scrollDownBtnRef} style={{ opacity: 0 }}
                 className='fixed w-[50px] h-[50px] flex items-center justify-center bottom-[30px] cursor-pointer left-[50%]  ml-[-25px]' onClick={() => {
+                    onNextStep()
                 }}>
                 <img src='/img/ic_scroll_down.png' className='w-[45px] h-[45px]' />
             </div>
