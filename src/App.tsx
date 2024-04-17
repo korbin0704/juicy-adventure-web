@@ -38,6 +38,7 @@ function App() {
   const [showFooter, setShowFooter] = useState(false)
   const [remainedAirdropSeconds, setRemainedAirdropSeconds] = useState<number>(0)
   let timer: any = null;
+  let touchStartYPos: number = 0
 
   useEffect(() => {
     startAirDropTimer()
@@ -142,44 +143,57 @@ function App() {
   const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
     setTimeout(() => {
       setLoadingEnd(true)
-      // videoRef.current.currentTime = 52
-    }, 2)
+      // moveToStep(5)
+    }, 2000)
   }
-  const onNextStep = () => {
+  const moveToStep = (p_step: number) => {
     if (step == 1) {
-      gsap.to(step1Ref.current, { opacity: 0, duration: 2 })
-      playFromTo(0, 7, () => {
-        setStep(step + 1)
-      });
+      gsap.to(step1Ref.current, { opacity: 0, duration: 1 })
     } else if (step == 2) {
-      gsap.to(step2Ref.current, { opacity: 0, duration: 2 })
-      playFromTo(7, 16, () => {
-        setStep(step + 1)
-      });
+      gsap.to(step2Ref.current, { opacity: 0, duration: 1 })
     } else if (step == 3) {
-      gsap.to(step3Ref.current, { opacity: 0, duration: 2 })
-      playFromTo(16, 28, () => {
-        setStep(step + 1)
-      });
+      gsap.to(step3Ref.current, { opacity: 0, duration: 1 })
     } else if (step == 4) {
-      gsap.to(step4Ref.current, { opacity: 0, duration: 2 })
-      playFromTo(28, 44, () => {
-        setStep(step + 1)
-      });
+      gsap.to(step4Ref.current, { opacity: 0, duration: 1 })
     } else if (step == 5) {
-      gsap.to(step5Ref.current, { opacity: 0, duration: 2 })
-      playFromTo(44, 47, () => {
-        setStep(step + 1)
-      });
+      gsap.to(step5Ref.current, { opacity: 0, duration: 1 })
     } else if (step == 6) {
-      gsap.to(step6Ref.current, { opacity: 0, duration: 2 })
+      gsap.to(step6Ref.current, { opacity: 0, duration: 1 })
+    } else if (step == 7) {
+      gsap.to(step7Ref.current, { opacity: 0, duration: 1 })
+    } else if (step == 8) {
+      gsap.to(step8Ref.current, { opacity: 0, duration: 1 })
+    }
+
+    if (p_step == 2) {
+      playFromTo(0, 7, () => {
+        setStep(p_step)
+      });
+    } else if (p_step == 3) {
+      playFromTo(7, 16, () => {
+        setStep(p_step)
+      });
+    } else if (p_step == 4) {
+      playFromTo(16, 28, () => {
+        setStep(p_step)
+      });
+    } else if (p_step == 5) {
+      playFromTo(28, 44, () => {
+        setStep(p_step)
+      });
+    } else if (p_step == 6) {
+      playFromTo(44, 47, () => {
+        setStep(p_step)
+      });
+    } else if (p_step == 7) {
       playFromTo(47, 50, () => {
         playFromTo(50, 56, undefined)
-        setStep(step + 1)
+        setStep(p_step)
       });
-    } else if (step == 7) {
-      gsap.to(step6Ref.current, { opacity: 0, duration: 2 })
-      setStep(step + 1)
+    } else if (p_step == 8) {
+      playFromTo(56, 56, () => {
+        setStep(p_step)
+      });
     }
   }
 
@@ -196,7 +210,7 @@ function App() {
   return (
     <div className='flex flex-col'>
       <div className={loadingEnd ? 'fixed w-[100vw] h-[100vh]' : 'hidden'}>
-        <video ref={videoRef} src={useIsMobile() ? '/vid/adventure-mo.mp4' : '/vid/adventure-pc.mp4'} className='w-[100%] h-[100%] object-cover' onCanPlay={() => { onVideoReady() }} />
+        <video ref={videoRef} src={useIsMobile() ? '/vid/adventure-mo.mp4' : '/vid/adventure-pc.mp4'} className='w-[100%] h-[100%] object-cover' onLoadedMetadata={() => { onVideoReady() }} />
       </div>
       <div className='z-1 relative w-full max-w-[1171px] self-center'>
         {!loadingEnd ?
@@ -204,7 +218,7 @@ function App() {
           :
           <div className='flex flex-col'>
             <div className='absolute w-full z-[10]'>
-              <Header remainedAirdropSeconds={remainedAirdropSeconds} onGoToStep={(step: number) => { setStep(step); }} />
+              <Header remainedAirdropSeconds={remainedAirdropSeconds} onGoToStep={(step: number) => { moveToStep(step); }} />
             </div>
             {step == 1 &&
               <div ref={step1Ref}>
@@ -216,7 +230,7 @@ function App() {
                 </div>
                 <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionX(getIsMobile() ? 69 : 59)}%`, top: `${getButtonPositionY(getIsMobile() ? 58 : 41)}%` }}>
                   <AnimatingButton initDelay={3} onClick={() => {
-                    onNextStep()
+                    moveToStep(2)
                   }} />
                 </div>
               </div>
@@ -237,7 +251,7 @@ function App() {
                   Are you ready to juice it up?!</span>
                 <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionY(getIsMobile() ? 50 : 29)}%`, top: `${getButtonPositionY(getIsMobile() ? 30 : 50)}%` }}>
                   <AnimatingButton onClick={() => {
-                    onNextStep()
+                    moveToStep(3)
                   }} />
                 </div>
               </div>
@@ -252,7 +266,7 @@ function App() {
                 </span>
                 <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionY(getIsMobile() ? 50 : 71)}%`, top: `${getButtonPositionY(getIsMobile() ? 25 : 35)}%` }}>
                   <AnimatingButton onClick={() => {
-                    onNextStep()
+                    moveToStep(4)
                   }} />
                 </div>
                 <div className='flex flex-row items-center mt-[34px] md:mt-[42px] space-x-[8px] md:space-x-[13px]'>
@@ -308,7 +322,7 @@ function App() {
                 </span>
                 <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionY(getIsMobile() ? 50 : 29)}%`, top: `${getButtonPositionY(getIsMobile() ? 30 : 33)}%` }}>
                   <AnimatingButton onClick={() => {
-                    onNextStep()
+                    moveToStep(5)
                   }} />
                 </div>
               </div>
@@ -316,11 +330,20 @@ function App() {
 
 
             {step == 5 &&
-              <div ref={step5Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100vh] md:pl-[400px] pt-[220px] md:pt-0' onWheel={(e) => {
-                if (e.deltaY > 0) {
-                  onNextStep()
-                }
-              }}>
+              <div ref={step5Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100vh] md:pl-[400px] pt-[220px] md:pt-0'
+                onTouchStart={(e) => {
+                  touchStartYPos = e.changedTouches[0].clientY
+                }}
+                onTouchEnd={(e) => {
+                  if (e.changedTouches[0].clientY - touchStartYPos < -80) {
+                    moveToStep(6)
+                  }
+                }}
+                onWheel={(e) => {
+                  if (e.deltaY > 0) {
+                    moveToStep(6)
+                  }
+                }}>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>Your Juice is ready!</span>
                 <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>
                   This juice can trn turn animals into humans<br />
@@ -328,8 +351,8 @@ function App() {
                   <br />
                   Now you are ready for the Juicy Adventure!
                 </span>
-                <div className='fixed w-[50px] h-[50px] flex items-center justify-center bottom-[30px] cursor-pointer' style={{}} onClick={() => {
-                  onNextStep()
+                <div className='fixed w-[50px] h-[50px] flex items-center justify-center bottom-[30px] cursor-pointer z-1' style={{}} onClick={() => {
+                  moveToStep(6)
                 }}>
                   <img src='/img/ic_scroll_down.png' className='w-[45px] h-[45px]' />
                 </div>
@@ -339,29 +362,57 @@ function App() {
             {step == 6 &&
               <div ref={step6Ref} onWheel={(e) => {
                 if (e.deltaY > 0) {
-                  onNextStep()
+                  moveToStep(7)
                 }
-              }}>
+              }}
+                onTouchStart={(e) => {
+                  touchStartYPos = e.changedTouches[0].clientY
+                }}
+                onTouchEnd={(e) => {
+                  if (e.changedTouches[0].clientY - touchStartYPos < -80) {
+                    moveToStep(7)
+                  }
+                }}
+              >
                 <StepTokenomics onNextStep={() => {
-                  onNextStep()
+                  moveToStep(7)
                 }} />
               </div>
             }
 
             {step == 7 &&
-              <div ref={step7Ref} onWheel={() => {
-                onNextStep()
-              }}>
+              <div ref={step7Ref}
+                onWheel={() => {
+                  moveToStep(8)
+                }}
+                onTouchStart={(e) => {
+                  touchStartYPos = e.changedTouches[0].clientY
+                }}
+                onTouchEnd={(e) => {
+                  if (e.changedTouches[0].clientY - touchStartYPos < -80) {
+                    moveToStep(8)
+                  }
+                }}
+              >
                 <StepGrowNft onNextStep={() => {
-                  onNextStep()
+                  moveToStep(8)
                 }} />
               </div>
             }
 
             {step == 8 &&
-              <div className='z-10' ref={step8Ref} onWheel={() => {
-                setShowFooter(true)
-              }}>
+              <div className='z-1' ref={step8Ref}
+                onWheel={() => {
+                  setShowFooter(true)
+                }}
+                onTouchStart={(e) => {
+                  touchStartYPos = e.changedTouches[0].clientY
+                }}
+                onTouchEnd={(e) => {
+                  if (e.changedTouches[0].clientY - touchStartYPos < -80) {
+                    setShowFooter(true)
+                  }
+                }}>
                 <div className='flex flex-col items-center justify-center self-center h-[100vh]'>
                   <span className='text-white text-[24px] md:text-[32px] font-bold whitespace-pre-line text-center mt-[-150px] md:mt-0'>
                     Upgrade your{getIsMobile() && "\n"} shooter NFTs<br />
