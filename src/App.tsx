@@ -61,7 +61,7 @@ function App() {
         ease: "sine.out",
         force3D: true
       });
-      gsap.from(sloganRef.current, { rotate: 180, ease: "sine.in", y: -880, duration: 1, opacity: 0, delay: 1.5 })
+      gsap.from(sloganRef.current, { rotate: 0, ease: "sine.in", y: 0, duration: 1, opacity: 0, delay: 3.5 })
       gsap.from(logoRef.current, { ease: "bounce.out", y: -550, duration: 1, opacity: 0, delay: 2 })
       gsap.from(timerRef.current, { duration: 1, opacity: 0, delay: 1 })
     }
@@ -300,12 +300,12 @@ function App() {
                   </div>
                 </div>
 
-                <div className='flex flex-row items-center space-x-[-70px] md:space-x-[-150px] mt-[-20px] md:mr-[-100px]'>
-                  <img src='/img/ic_character1.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' />
-                  <img src='/img/ic_character2.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' />
-                  <img src='/img/ic_character3.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' style={{ marginLeft: getIsMobile() ? -58 : -128 }} />
+                <div className='flex flex-row items-center space-x-[-70px] md:space-x-[-150px] mt-[-30px] md:mr-[-130px]'>
+                  <img src='/img/ic_character2.gif' className='w-[160px] h-[160px] md:w-[420px] md:h-[420px]' />
+                  <img src='/img/ic_character1.gif' className='w-[160px] h-[160px] md:w-[420px] md:h-[420px]' />
+                  <img src='/img/ic_character3.gif' className='w-[160px] h-[160px] md:w-[420px] md:h-[420px]' style={{ marginLeft: getIsMobile() ? -58 : -148 }} />
                 </div>
-                <span className='w-full text-center text-[10px] md:text-[16px] text-white md:mr-[-60px]'>
+                <span className='w-full text-center text-[10px] md:text-[16px] text-white md:mr-[-60px] mt-[-10px] md:mt-[-40px]'>
                   Design your shooter & Squuze your way to victory
                 </span>
               </div>

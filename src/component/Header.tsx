@@ -64,7 +64,7 @@ const Header = ({ remainedAirdropSeconds, onGoToStep }: Props) => {
                         </div>
                         <div onClick={() => {
                             onMenu()
-                            onGoToStep(8)
+                            onGoToStep(7)
                         }}>
                             <span className='text-[white] text-[16px] cursor-pointer hover:font-bold mb-0'>NFT</span>
                         </div>
@@ -104,7 +104,7 @@ const Header = ({ remainedAirdropSeconds, onGoToStep }: Props) => {
                                 </div>
                                 <div onClick={() => {
                                     onMenu()
-                                    onGoToStep(8)
+                                    onGoToStep(7)
                                 }}>
                                     <span className='text-[white] text-[15px] cursor-pointer mb-0'>NFT</span>
                                 </div>
