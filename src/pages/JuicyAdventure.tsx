@@ -12,11 +12,14 @@ import dayjs from 'dayjs';
 import { leftPad } from '../common/utils';
 import { AIRDROP_EVENT_LINK, EVENT_STARTS_AT } from '../common/constant';
 import { Carousel } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(TextPlugin)
 
 function JuicyAdventure() {
+
+  const navigate = useNavigate();
 
   const step1Ref = useRef<any>(null);
   const step2Ref = useRef<any>(null);
@@ -98,7 +101,7 @@ function JuicyAdventure() {
       const a = desiredWidth * p_initPercent / 100
       const b = desiredWidth - a
       res = ((a - delta) / (desiredWidth - delta * 2)) * 100
-      console.log("desiredWidth:", desiredWidth, "a:", a, "b:", b, "delta:", delta, "res:", res)
+      // console.log("desiredWidth:", desiredWidth, "a:", a, "b:", b, "delta:", delta, "res:", res)
     }
     return res
   }
@@ -114,7 +117,7 @@ function JuicyAdventure() {
       const a = desiredHeight * p_initPercent / 100
       const b = desiredHeight - a
       res = ((a - delta) / (desiredHeight - delta * 2)) * 100
-      console.log("desiredHeight:", desiredHeight, "a:", a, "b:", b, "delta:", delta, "res:", res)
+      // console.log("desiredHeight:", desiredHeight, "a:", a, "b:", b, "delta:", delta, "res:", res)
     }
     return res
   }
