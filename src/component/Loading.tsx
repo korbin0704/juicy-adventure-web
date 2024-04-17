@@ -16,7 +16,7 @@ const Loading = () => {
     }, [])
 
     return (
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center overflow-hidden'>
             <div className='w-[300px] h-[300px] md:w-[900px] md:h-[900px] mt-[100px]'>
                 <img src='/img/ic_grape.gif' className='w-[300px] h-[300px] md:w-[900px] md:h-[900px] mt-[50px] md:mt-[-100px]' />
             </div>
