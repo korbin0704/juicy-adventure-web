@@ -30,7 +30,7 @@ const Header = ({ remainedAirdropSeconds, onGoToStep }: Props) => {
         <div>
             <div className='flex flex-col'>
                 {(showPcMenu || showMobMenu) &&
-                    <div className='fixed left-0 w-full h-[100vh] bg-transparent max-w-[100vw] md:bg-black/40 backdrop-blur-[4px] -z-10' onClick={onMenu}>
+                    <div className='fixed left-0 w-full h-[100dvh] bg-transparent max-w-[100vw] md:bg-black/40 backdrop-blur-[4px] -z-10' onClick={onMenu}>
                     </div>
                 }
 
@@ -73,7 +73,7 @@ const Header = ({ remainedAirdropSeconds, onGoToStep }: Props) => {
 
                 <Collapse in={showMobMenu} dimension={"width"}>
                     <div className='absolute'>
-                        <div className='flex flex-col h-[100vh] px-[14px] py-[12px] bg-[#1D1D1D] rounded-tr-[9px] w-[200px]'>
+                        <div className='flex flex-col h-[100dvh] px-[14px] py-[12px] bg-[#1D1D1D] rounded-tr-[9px] w-[200px]'>
                             <img src='/img/ic_arrow_left.svg' className='w-[24px] h-[24px] cursor-pointer' onClick={onMenu} />
                             <img src='/img/img_juicy_logo.png' className='w-[130px] h-[70px] mt-[22px] self-center' />
                             <div

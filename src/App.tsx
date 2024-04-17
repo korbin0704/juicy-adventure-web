@@ -60,8 +60,8 @@ function App() {
         ease: "sine.out",
         force3D: true
       });
-      gsap.from(sloganRef.current, { rotate: 360, ease: "sine.in", y: -880, duration: 1, opacity: 0, delay: 2.5 })
-      gsap.from(logoRef.current, { ease: "bounce.out", y: -550, duration: 1, opacity: 0, delay: 3.5 })
+      gsap.from(sloganRef.current, { rotate: 180, ease: "sine.in", y: -880, duration: 1, opacity: 0, delay: 1.5 })
+      gsap.from(logoRef.current, { ease: "bounce.out", y: -550, duration: 1, opacity: 0, delay: 2 })
       gsap.from(timerRef.current, { duration: 1, opacity: 0, delay: 1 })
     }
   }, [loadingEnd])
@@ -121,6 +121,7 @@ function App() {
 
   const playFromTo = (startTime: number, endTime: number, callback: Function | undefined) => {
     const video = videoRef.current;
+    video.playbackRate = 2
     if (video) {
       // Pause at a specific section
       const pauseAtEnd = () => {
@@ -143,7 +144,6 @@ function App() {
   const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
     setTimeout(() => {
       setLoadingEnd(true)
-      // moveToStep(5)
     }, 2000)
   }
   const moveToStep = (p_step: number) => {
@@ -209,8 +209,8 @@ function App() {
 
   return (
     <div className='flex flex-col'>
-      <div className={loadingEnd ? 'fixed w-[100vw] h-[100vh]' : 'hidden'}>
-        <video ref={videoRef} src={useIsMobile() ? '/vid/adventure-mo.mp4' : '/vid/adventure-pc.mp4'} className='w-[100%] h-[100%] object-cover' onLoadedMetadata={() => { onVideoReady() }} />
+      <div className={loadingEnd ? 'fixed w-[100vw] h-[100dvh]' : 'hidden'}>
+        <video ref={videoRef} autoplay={getIsMobile() ? "" : false} playsinline="" className='w-[100%] h-[100%] object-cover' src={useIsMobile() ? '/vid/adventure-mo.mp4' : '/vid/adventure-pc.mp4'} onLoadedMetadata={() => { onVideoReady() }} />
       </div>
       <div className='z-1 relative w-full max-w-[1171px] self-center'>
         {!loadingEnd ?
@@ -237,7 +237,7 @@ function App() {
             }
 
             {step == 2 &&
-              <div ref={step2Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100vh] md:pl-[220px] pt-[220px] md:pt-0'>
+              <div ref={step2Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100dvh] md:pl-[220px] pt-[220px] md:pt-0'>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>A Splash {getIsMobile() ? "\n" : ""} of Magic Unleashed!</span>
                 <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>A magical juice mixer landed on a peaceful island. <br />
                   The juices from it are not just delicious—they turn <br />
@@ -258,7 +258,7 @@ function App() {
             }
 
             {step == 3 &&
-              <div ref={step3Ref} className='flex flex-col items-center md:items-end justify-center self-center h-[100vh] md:pr-[300px] pt-[220px] md:pt-0'>
+              <div ref={step3Ref} className='flex flex-col items-center md:items-end justify-center self-center h-[100dvh] md:pr-[300px] pt-[220px] md:pt-0'>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>Be the last one {getIsMobile() ? "\n" : ""} survive in the battle!</span>
                 <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[3px]' style={{ textAlign: getIsMobile() ? "center" : "right" }}>
                   It is your time to shine in the battle.<br />
@@ -299,14 +299,14 @@ function App() {
                 <div className='flex flex-row items-center space-x-[-70px] md:space-x-[-150px] mt-[-20px] md:mr-[-100px]'>
                   <img src='/img/ic_character1.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' />
                   <img src='/img/ic_character2.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' />
-                  <img src='/img/ic_character3.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' />
+                  <img src='/img/ic_character3.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' style={{ marginLeft: getIsMobile() ? -58 : -128 }} />
                 </div>
               </div>
             }
 
 
             {step == 4 &&
-              <div ref={step4Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100vh] md:pl-[220px] pt-[220px] md:pt-0'>
+              <div ref={step4Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100dvh] md:pl-[220px] pt-[220px] md:pt-0'>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>Watch Your Step!</span>
                 <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>
                   The battle's heating up, and it's not just about dodging enemies.<br />
@@ -330,11 +330,12 @@ function App() {
 
 
             {step == 5 &&
-              <div ref={step5Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100vh] md:pl-[400px] pt-[220px] md:pt-0'
+              <div ref={step5Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100dvh] md:pl-[400px] pt-[220px] md:pt-0'
                 onTouchStart={(e) => {
                   touchStartYPos = e.changedTouches[0].clientY
                 }}
                 onTouchEnd={(e) => {
+                  // alert(e.changedTouches[0].clientY - touchStartYPos)
                   if (e.changedTouches[0].clientY - touchStartYPos < -80) {
                     moveToStep(6)
                   }
@@ -369,6 +370,7 @@ function App() {
                   touchStartYPos = e.changedTouches[0].clientY
                 }}
                 onTouchEnd={(e) => {
+                  // alert(e.changedTouches[0].clientY - touchStartYPos)
                   if (e.changedTouches[0].clientY - touchStartYPos < -80) {
                     moveToStep(7)
                   }
@@ -389,6 +391,7 @@ function App() {
                   touchStartYPos = e.changedTouches[0].clientY
                 }}
                 onTouchEnd={(e) => {
+                  // alert(e.changedTouches[0].clientY - touchStartYPos)
                   if (e.changedTouches[0].clientY - touchStartYPos < -80) {
                     moveToStep(8)
                   }
@@ -413,7 +416,7 @@ function App() {
                     setShowFooter(true)
                   }
                 }}>
-                <div className='flex flex-col items-center justify-center self-center h-[100vh]'>
+                <div className='flex flex-col items-center justify-center self-center h-[100dvh]'>
                   <span className='text-white text-[24px] md:text-[32px] font-bold whitespace-pre-line text-center mt-[-150px] md:mt-0'>
                     Upgrade your{getIsMobile() && "\n"} shooter NFTs<br />
                     Squeeze your way{getIsMobile() && "\n"} to victory

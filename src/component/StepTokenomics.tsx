@@ -49,7 +49,7 @@ const StepTokenomics = ({ onNextStep }: Props) => {
     }, [])
 
     return (
-        <div className='flex flex-col items-center justify-center self-center h-[100vh]'>
+        <div className='flex flex-col items-center justify-center self-center h-[100dvh]'>
             <span className='whitespace-pre-line text-center'>
                 <span ref={tokenomicsTxtRef1} className='text-[24px] md:text-[42px] text-white font-bold text-center'></span>
                 {getIsMobile() ? "\n" : <span className='mx-[6px]' />}
