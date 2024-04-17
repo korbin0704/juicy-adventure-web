@@ -12,6 +12,7 @@ import StepGrowNft from './component/StepGrowNft';
 import dayjs from 'dayjs';
 import { leftPad } from './common/utils';
 import { AIRDROP_EVENT_LINK, EVENT_STARTS_AT } from './common/constant';
+import { Carousel } from 'react-bootstrap';
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(TextPlugin)
@@ -144,6 +145,7 @@ function App() {
   const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
     setTimeout(() => {
       setLoadingEnd(true)
+      // moveToStep(4)
     }, 2000)
   }
   const moveToStep = (p_step: number) => {
@@ -301,6 +303,9 @@ function App() {
                   <img src='/img/ic_character2.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' />
                   <img src='/img/ic_character3.gif' className='w-[160px] h-[160px] md:w-[350px] md:h-[350px]' style={{ marginLeft: getIsMobile() ? -58 : -128 }} />
                 </div>
+                <span className='w-full text-center text-[10px] md:text-[16px] text-white md:mr-[-60px]'>
+                  Design your shooter & Squuze your way to victory
+                </span>
               </div>
             }
 
@@ -316,7 +321,14 @@ function App() {
                   But hey, you can also use jumping boards to zip away from trouble.<br />
                   So,use the map to your advantage, and aim to be the last one standing.
                 </span>
-                <img src='/img/img_step4.png' className='w-[263px] h-[125px] md:w-[643px] md:h-[306px] mt-[34px]' />
+                <Carousel controls={false} indicators={false} interval={1500} className='w-[263px] h-[125px] md:w-[643px] md:h-[306px] mt-[34px]'>
+                  {['/img/img_step4_1.png', '/img/img_step4_2.png', '/img/img_step4_3.png'].map((it) => {
+                    return (
+                      <Carousel.Item>
+                        <img src={it} className='' />
+                      </Carousel.Item>)
+                  })}
+                </Carousel>
                 <span className='text-white text-[15px] mt-[12px] hidden md:flex self-center'>
                   It's all about being smart and quick on your feet!
                 </span>
