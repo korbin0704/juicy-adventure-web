@@ -17,10 +17,10 @@ const Loading = () => {
 
     return (
         <div className='flex flex-col items-center'>
-            <div className='w-[300px] h-[300px] md:w-[600px] md:h-[600px] mt-[100px]'>
-                <img src='/img/ic_grape.gif' className='mt-[30px]' />
+            <div className='w-[300px] h-[300px] md:w-[900px] md:h-[900px] mt-[100px]'>
+                <img src='/img/ic_grape.gif' className='w-[300px] h-[300px] md:w-[900px] md:h-[900px] mt-[50px] md:mt-[-100px]' />
             </div>
-            <div className='flex flex-row items-center space-x-[7px] mt-[100px] md:mt-[0px]'>
+            <div className='flex flex-row items-center space-x-[7px] mt-[0px] md:mt-[-300px]'>
                 {Array(6).fill(0).map((it, idx) => {
                     return (
                         <div key={idx} className={clock % 7 > idx ? 'w-[24px] h-[24px] border-[3px] bg-[white] border-[white]' : 'w-[24px] h-[24px] border-[3px] border-[white]'}>

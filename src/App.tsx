@@ -69,17 +69,17 @@ function App() {
 
   useEffect(() => {
     if (step == 2) {
-      gsap.from(step2Ref.current, { duration: 2, opacity: 0, delay: 1 })
+      gsap.from(step2Ref.current, { duration: 2, opacity: 0, delay: 0 })
     } else if (step == 3) {
-      gsap.from(step3Ref.current, { duration: 2, opacity: 0, delay: 1 })
+      gsap.from(step3Ref.current, { duration: 2, opacity: 0, delay: 0 })
     } else if (step == 4) {
-      gsap.from(step4Ref.current, { duration: 2, opacity: 0, delay: 1 })
+      gsap.from(step4Ref.current, { duration: 2, opacity: 0, delay: 0 })
     } else if (step == 5) {
-      gsap.from(step5Ref.current, { duration: 2, opacity: 0, delay: 1 })
+      gsap.from(step5Ref.current, { duration: 2, opacity: 0, delay: 0 })
     } else if (step == 6) {
-      gsap.from(step6Ref.current, { duration: 2, opacity: 0, delay: 1 })
+      gsap.from(step6Ref.current, { duration: 2, opacity: 0, delay: 0 })
     } else if (step == 8) {
-      gsap.from(step8Ref.current, { duration: 1, opacity: 0, delay: 1 })
+      gsap.from(step8Ref.current, { duration: 1, opacity: 0, delay: 0 })
     }
   }, [step])
 
@@ -172,16 +172,18 @@ function App() {
         setStep(p_step)
       });
     } else if (p_step == 3) {
-      playFromTo(7, 16, () => {
+      playFromTo(7, 17, () => {
         setStep(p_step)
       });
     } else if (p_step == 4) {
-      playFromTo(16, 28, () => {
+      playFromTo(17, 28, () => {
         setStep(p_step)
       });
     } else if (p_step == 5) {
-      playFromTo(28, 44, () => {
+      playFromTo(28, 41, () => {
         setStep(p_step)
+        playFromTo(41, 44, () => {
+        })
       });
     } else if (p_step == 6) {
       playFromTo(44, 47, () => {
@@ -475,9 +477,9 @@ function App() {
               </div>
             }
 
-            <div ref={timerRef} className='fixed bottom-[30px] right-0 md:right-[30px]'>
+            <div ref={timerRef} className='fixed bottom-[30px] right-0 md:right-[30px] -z-10'>
               {remainedAirdropSeconds ?
-                <img src={'img/ic_countdown.png'} className='w-[294px] h-[166px] md:w-[406px] md:h-[229px]' />
+                <img src={'img/ic_countdown.png'} className='w-[294px] h-[166px] md:w-[812px] md:h-[458px]' />
                 :
                 <img src={'img/ic_eventopen.png'} className='w-[294px] h-[166px] md:w-[406px] md:h-[229px] cursor-pointer' onClick={() => {
 
@@ -485,11 +487,11 @@ function App() {
               }
               {remainedAirdropSeconds > 0 &&
                 <div className='absolute inset-0 whitespace-pre-line'>
-                  <span className='absolute right-[67px] top-[84px] md:right-[98px] md:top-[115px] w-[30px] text-center text-black text-[10px] md:text-[14px] font-bold'>
+                  <span className='absolute right-[67px] top-[84px] md:right-[217px] md:top-[232px] w-[30px] text-center text-black text-[10px] md:text-[26px] font-bold'>
                     {parseInt((Math.max(0, remainedAirdropSeconds) / (24 * 3600)).toString())}
                   </span>
                   {getIsMobile() ? <br /> : ""}
-                  <span className='absolute right-[13px] top-[86px] md:right-[18px] md:top-[120px] w-[58px] md:w-[78px] text-center text-black text-[9px] md:text-[12px] font-bold'>
+                  <span className='absolute right-[13px] top-[86px] md:right-[106px] md:top-[238px] w-[58px] md:w-[78px] text-center text-black text-[9px] md:text-[24px] font-bold'>
                     {leftPad(parseInt(((Math.max(0, remainedAirdropSeconds) % (24 * 3600)) / 3600).toString()), 2)}
                     :
                     {leftPad(parseInt(((Math.max(0, remainedAirdropSeconds) % 3600) / 60).toString()), 2)}
