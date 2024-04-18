@@ -75,7 +75,7 @@ const Header = ({ remainedAirdropSeconds, onGoToStep }: Props) => {
                     <div className='absolute'>
                         <div className='flex flex-col h-[100dvh] px-[14px] py-[12px] bg-[#1D1D1D] rounded-tr-[9px] w-[200px]'>
                             <img src='/img/ic_arrow_left.svg' className='w-[24px] h-[24px] cursor-pointer' onClick={onMenu} />
-                            <img src='/img/img_juicy_logo.png' className='w-[130px] h-[70px] mt-[22px] self-center' />
+                            <img src='/img/img_juicy_logo.png' className='w-[130px] h-[70px] mt-[22px] self-center' onClick={() => { location.reload() }} />
                             <div
                                 className={remainedAirdropSeconds > 0
                                     ?
