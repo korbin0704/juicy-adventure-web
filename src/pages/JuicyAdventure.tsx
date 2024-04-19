@@ -19,8 +19,6 @@ gsap.registerPlugin(TextPlugin)
 
 function JuicyAdventure() {
 
-  const navigate = useNavigate();
-
   const step1Ref = useRef<any>(null);
   const step2Ref = useRef<any>(null);
   const step3Ref = useRef<any>(null);
@@ -54,18 +52,22 @@ function JuicyAdventure() {
 
   useEffect(() => {
     if (loadingEnd) {
-      gsap.from(videoRef.current, {
-        duration: 1,
-        rotation: 0,
-        opacity: 0,
-        delay: 0.5,
-        stagger: 0.2,
-        ease: "sine.out",
-        force3D: true
-      });
-      gsap.from(sloganRef.current, { rotate: 0, ease: "sine.in", y: 0, duration: 1, opacity: 0, delay: 3.5 })
-      gsap.from(logoRef.current, { ease: "bounce.out", y: -550, duration: 1, opacity: 0, delay: 2 })
-      gsap.from(timerRef.current, { duration: 1, opacity: 0, delay: 1 })
+      if (true) {
+        gsap.from(videoRef.current, {
+          duration: 1,
+          rotation: 0,
+          opacity: 0,
+          delay: 0.5,
+          stagger: 0.2,
+          ease: "sine.out",
+          force3D: true
+        });
+        gsap.from(sloganRef.current, { rotate: 0, ease: "sine.in", y: 0, duration: 1, opacity: 0, delay: 3.5 })
+        gsap.from(logoRef.current, { ease: "bounce.out", y: -550, duration: 1, opacity: 0, delay: 2 })
+        gsap.from(timerRef.current, { duration: 1, opacity: 0, delay: 1 })
+      } else { // for test only
+        moveToStep(5)
+      }
     }
   }, [loadingEnd])
 
@@ -147,27 +149,17 @@ function JuicyAdventure() {
   const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
     setTimeout(() => {
       setLoadingEnd(true)
-      // moveToStep(4)
     }, 2000)
   }
   const moveToStep = (p_step: number) => {
-    if (step == 1) {
-      gsap.to(step1Ref.current, { opacity: 0, duration: 1 })
-    } else if (step == 2) {
-      gsap.to(step2Ref.current, { opacity: 0, duration: 1 })
-    } else if (step == 3) {
-      gsap.to(step3Ref.current, { opacity: 0, duration: 1 })
-    } else if (step == 4) {
-      gsap.to(step4Ref.current, { opacity: 0, duration: 1 })
-    } else if (step == 5) {
-      gsap.to(step5Ref.current, { opacity: 0, duration: 1 })
-    } else if (step == 6) {
-      gsap.to(step6Ref.current, { opacity: 0, duration: 1 })
-    } else if (step == 7) {
-      gsap.to(step7Ref.current, { opacity: 0, duration: 1 })
-    } else if (step == 8) {
-      gsap.to(step8Ref.current, { opacity: 0, duration: 1 })
-    }
+    gsap.to(step1Ref.current, { opacity: 0, duration: 1 })
+    gsap.to(step2Ref.current, { opacity: 0, duration: 1 })
+    gsap.to(step3Ref.current, { opacity: 0, duration: 1 })
+    gsap.to(step4Ref.current, { opacity: 0, duration: 1 })
+    gsap.to(step5Ref.current, { opacity: 0, duration: 1 })
+    gsap.to(step6Ref.current, { opacity: 0, duration: 1 })
+    gsap.to(step7Ref.current, { opacity: 0, duration: 1 })
+    gsap.to(step8Ref.current, { opacity: 0, duration: 1 })
 
     if (p_step == 2) {
       playFromTo(0, 7, () => {
@@ -184,11 +176,11 @@ function JuicyAdventure() {
     } else if (p_step == 5) {
       playFromTo(28, 41, () => {
         setStep(p_step)
-        playFromTo(41, 44, () => {
+        playFromTo(41, 43, () => {
         })
       });
     } else if (p_step == 6) {
-      playFromTo(44, 47, () => {
+      playFromTo(43, 47, () => {
         setStep(p_step)
       });
     } else if (p_step == 7) {
@@ -216,7 +208,7 @@ function JuicyAdventure() {
   return (
     <div className='flex flex-col'>
       <div className={loadingEnd ? 'fixed w-[100vw] h-[100dvh]' : 'hidden'}>
-        <video ref={videoRef} autoplay={getIsMobile() ? "" : false} playsinline="" className='w-[100%] h-[100%] object-cover' src={useIsMobile() ? '/vid/adventure-mo.mp4' : '/vid/adventure-pc.mp4'} onLoadedMetadata={() => { onVideoReady() }} />
+        <video ref={videoRef} autoplay={getIsMobile() ? "false" : "false"} playsinline="" muted className='w-[100%] h-[100%] object-cover' src={useIsMobile() ? '/vid/adventure-mo.mp4' : '/vid/adventure-pc.mp4'} onLoadedMetadata={() => { onVideoReady() }} />
       </div>
       <div className='z-1 relative w-full max-w-[1171px] self-center'>
         {!loadingEnd ?
@@ -346,21 +338,7 @@ function JuicyAdventure() {
 
 
             {step == 5 &&
-              <div ref={step5Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100dvh] md:pl-[400px] pt-[220px] md:pt-0'
-                onTouchStart={(e) => {
-                  touchStartYPos = e.changedTouches[0].clientY
-                }}
-                onTouchEnd={(e) => {
-                  // alert(e.changedTouches[0].clientY - touchStartYPos)
-                  if (e.changedTouches[0].clientY - touchStartYPos < -80) {
-                    moveToStep(6)
-                  }
-                }}
-                onWheel={(e) => {
-                  if (e.deltaY > 0) {
-                    moveToStep(6)
-                  }
-                }}>
+              <div ref={step5Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100dvh] md:pl-[400px] pt-[220px] md:pt-0'>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>Your Juice is ready!</span>
                 <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>
                   This juice can trn turn animals into humans<br />
@@ -368,10 +346,10 @@ function JuicyAdventure() {
                   <br />
                   Now you are ready for the Juicy Adventure!
                 </span>
-                <div className='fixed w-[50px] h-[50px] flex items-center justify-center bottom-[30px] cursor-pointer z-1' style={{}} onClick={() => {
-                  moveToStep(6)
-                }}>
-                  <img src='/img/ic_scroll_down.png' className='w-[45px] h-[45px]' />
+                <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionY(getIsMobile() ? 50 : 29)}%`, top: `${getButtonPositionY(getIsMobile() ? 30 : 33)}%` }}>
+                  <AnimatingButton onClick={() => {
+                    moveToStep(6)
+                  }} />
                 </div>
               </div>
             }

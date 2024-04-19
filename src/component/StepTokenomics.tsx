@@ -89,7 +89,7 @@ const StepTokenomics = ({ onNextStep }: Props) => {
             </div>
 
             <div ref={scrollDownBtnRef} style={{ opacity: 0 }}
-                className='fixed w-[50px] h-[50px] flex items-center justify-center bottom-[30px] cursor-pointer left-[50%]  ml-[-25px] z-1' onClick={() => {
+                className='fixed w-[45px] h-[45px] translate-x-[-50%] flex items-center justify-center bottom-[30px] cursor-pointer left-[50%] z-1' onClick={() => {
                     onNextStep()
                 }}>
                 <img src='/img/ic_scroll_down.png' className='w-[45px] h-[45px]' />

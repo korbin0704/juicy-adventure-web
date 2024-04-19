@@ -19,6 +19,8 @@ const StepGrowNft = ({ onNextStep }: Props) => {
     const mickey6Ref = useRef<any>(null);
     const mickey7Ref = useRef<any>(null);
 
+    const scrollDownBtnRef = useRef<any>(null);
+
     useEffect(() => {
         gsap.timeline({})
             .to(tokenomicsTxtRef1.current, { duration: 1, text: "Grow Along" })
@@ -28,14 +30,19 @@ const StepGrowNft = ({ onNextStep }: Props) => {
                 gsap.timeline()
                     .to(mickey1Ref.current, { duration: 1, ease: "expo.out", opacity: 1, })
                     .then(() => {
-                        gsap.timeline().to(mickey2Ref.current, { duration: 0.5, ease: "expo.out", opacity: 1, });
-                        gsap.timeline().to(mickey3Ref.current, { duration: 0.5, ease: "expo.out", opacity: 1, })
+                        gsap.timeline().to(mickey2Ref.current, { duration: 0.2, ease: "expo.out", opacity: 1, });
+                        gsap.timeline().to(mickey3Ref.current, { duration: 0.2, ease: "expo.out", opacity: 1, })
                             .then(() => {
-                                gsap.timeline().to(mickey4Ref.current, { duration: 0.5, ease: "expo.out", opacity: 1, });
-                                gsap.timeline().to(mickey5Ref.current, { duration: 0.5, ease: "expo.out", opacity: 1, })
+                                gsap.timeline().to(mickey4Ref.current, { duration: 0.2, ease: "expo.out", opacity: 1, });
+                                gsap.timeline().to(mickey5Ref.current, { duration: 0.2, ease: "expo.out", opacity: 1, })
                                     .then(() => {
-                                        gsap.timeline().to(mickey6Ref.current, { duration: 0.5, ease: "expo.out", opacity: 1, });
-                                        gsap.timeline().to(mickey7Ref.current, { duration: 0.5, ease: "expo.out", opacity: 1, });
+                                        gsap.timeline().to(mickey6Ref.current, { duration: 0.2, ease: "expo.out", opacity: 1, });
+                                        gsap.timeline().to(mickey7Ref.current, { duration: 0.2, ease: "expo.out", opacity: 1, })
+                                            .to(scrollDownBtnRef.current, {
+                                                duration: 1, ease: "expo.out",
+                                                y: -20,
+                                                opacity: 1,
+                                            })
                                     })
                             })
                     })
@@ -66,6 +73,12 @@ const StepGrowNft = ({ onNextStep }: Props) => {
                 <img ref={mickey3Ref} src='/img/img_mickey.png' className='w-[136px] h-[156px] md:w-[262px] md:h-[301px] mt-[67px] md:mt-[64px] z-40' style={{ opacity: 0 }} />
                 <img ref={mickey5Ref} src='/img/img_mickey.png' className='w-[114px] h-[131px] md:w-[219px] md:h-[253px] mt-[27px] md:mt-[38px] z-30' style={{ opacity: 0 }} />
                 <img ref={mickey7Ref} src='/img/img_mickey.png' className='w-[91px] h-[105px] md:w-[176px] md:h-[201px]' style={{ opacity: 0 }} />
+            </div>
+            <div ref={scrollDownBtnRef} style={{ opacity: 0 }}
+                className='fixed w-[45px] h-[45px] translate-x-[-50%] flex items-center justify-center bottom-[30px] cursor-pointer left-[50%] z-1' onClick={() => {
+                    onNextStep()
+                }}>
+                <img src='/img/ic_scroll_down.png' className='w-[45px] h-[45px]' />
             </div>
         </div>
     );
