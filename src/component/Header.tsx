@@ -15,7 +15,7 @@ const Header = ({ remainedAirdropSeconds, onGoToStep }: Props) => {
     const menuRef = useRef<any>(null);
 
     useEffect(() => {
-        gsap.from(menuRef.current, { rotation: 0, y: -50, duration: 1, delay: 1.5 })
+        gsap.from(menuRef.current, { rotation: 0, y: -80, duration: 1, delay: 1.5 })
     }, [])
 
     const onMenu = () => {
@@ -35,7 +35,10 @@ const Header = ({ remainedAirdropSeconds, onGoToStep }: Props) => {
                 }
 
                 <div ref={menuRef} className='flex flex-row justify-between items-center px-[20px] md:px-0 py-[11px] md:py-[16px]'>
-                    <img src='/img/ic_menu.svg' className='w-[40px] h-[40px] md:w-[40px] md:h-[40px] cursor-pointer' onClick={onMenu} />
+                    <div className='flex flex-row items-center'>
+                        <img src='/img/ic_menu.svg' className='w-[40px] h-[40px] md:w-[40px] md:h-[40px] cursor-pointer' onClick={onMenu} />
+                        <img src='/img/img_juicy_logo.png' className='w-[90px] h-[48px] ml-[20px] cursor-pointer' onClick={() => { location.reload() }} />
+                    </div>
                     <div className='hidden md:flex flex-row items-center space-x-[26px]'>
                         <a target='_blank' href={WHITE_PAPER_LINK}>
                             <img src='/img/ic_white_paper.png' className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] cursor-pointer' />

@@ -66,7 +66,7 @@ function JuicyAdventure() {
         gsap.from(logoRef.current, { ease: "bounce.out", y: -550, duration: 1, opacity: 0, delay: 2 })
         gsap.from(timerRef.current, { duration: 1, opacity: 0, delay: 1 })
       } else { // for test only
-        moveToStep(5)
+        moveToStep(3)
       }
     }
   }, [loadingEnd])
@@ -208,7 +208,7 @@ function JuicyAdventure() {
   return (
     <div className='flex flex-col'>
       <div className={loadingEnd ? 'fixed w-[100vw] h-[100dvh]' : 'hidden'}>
-        <video ref={videoRef} autoplay={getIsMobile() ? "false" : "false"} playsinline="" muted className='w-[100%] h-[100%] object-cover' src={useIsMobile() ? '/vid/adventure-mo.mp4' : '/vid/adventure-pc.mp4'} onLoadedMetadata={() => { onVideoReady() }} />
+        <video ref={videoRef} autoplay={getIsMobile() ? "" : false} playsinline="" className='w-[100%] h-[100%] object-cover' src={useIsMobile() ? '/vid/adventure-mo.mp4' : '/vid/adventure-pc.mp4'} onLoadedMetadata={() => { onVideoReady() }} />
       </div>
       <div className='z-1 relative w-full max-w-[1171px] self-center'>
         {!loadingEnd ?
@@ -235,7 +235,7 @@ function JuicyAdventure() {
             }
 
             {step == 2 &&
-              <div ref={step2Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100dvh] md:pl-[220px] pt-[220px] md:pt-0'>
+              <div ref={step2Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100dvh] md:pl-[220px] pt-[160px] md:pt-0'>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>A Splash {getIsMobile() ? "\n" : ""} of Magic Unleashed!</span>
                 <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>A magical juice mixer landed on a peaceful island. <br />
                   The juices from it are not just delicious—they turn <br />
@@ -256,7 +256,7 @@ function JuicyAdventure() {
             }
 
             {step == 3 &&
-              <div ref={step3Ref} className='flex flex-col items-center md:items-end justify-center self-center h-[100dvh] md:pr-[300px] pt-[220px] md:pt-0'>
+              <div ref={step3Ref} className='flex flex-col items-center md:items-end justify-center self-center h-[100dvh] md:pr-[300px] pt-[160px] md:pt-0'>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>Be the last one {getIsMobile() ? "\n" : ""} survive in the battle!</span>
                 <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[3px]' style={{ textAlign: getIsMobile() ? "center" : "right" }}>
                   It is your time to shine in the battle.<br />
@@ -267,7 +267,7 @@ function JuicyAdventure() {
                     moveToStep(4)
                   }} />
                 </div>
-                <div className='flex flex-row items-center mt-[34px] md:mt-[42px] space-x-[8px] md:space-x-[13px]'>
+                <div className='flex flex-row items-center mt-[20px] md:mt-[42px] space-x-[8px] md:space-x-[13px]'>
                   <div className='flex flex-col'>
                     <img src='/img/ic_shooter.png' className='w-[60px] h-[60px] md:w-[115px] md:h-[115px]' />
                     <div className='h-[35px] flex items-center justify-center text-white text-[10px] md:text-[15px] mt-[10px] text-center'>
@@ -295,9 +295,9 @@ function JuicyAdventure() {
                 </div>
 
                 <div className='flex flex-row items-center space-x-[-70px] md:space-x-[-150px] mt-[-30px] md:mr-[-130px]'>
+                  <img src='/img/ic_character3.gif' className='w-[160px] h-[160px] md:w-[420px] md:h-[420px]' />
                   <img src='/img/ic_character2.gif' className='w-[160px] h-[160px] md:w-[420px] md:h-[420px]' />
-                  <img src='/img/ic_character1.gif' className='w-[160px] h-[160px] md:w-[420px] md:h-[420px]' />
-                  <img src='/img/ic_character3.gif' className='w-[160px] h-[160px] md:w-[420px] md:h-[420px]' style={{ marginLeft: getIsMobile() ? -58 : -148 }} />
+                  <img src='/img/ic_character1.gif' className='w-[160px] h-[160px] md:w-[420px] md:h-[420px]' style={{}} />
                 </div>
                 <span className='w-full text-center text-[10px] md:text-[16px] text-white md:mr-[-60px] mt-[-10px] md:mt-[-40px]'>
                   Design your shooter & Squuze your way to victory
@@ -307,9 +307,9 @@ function JuicyAdventure() {
 
 
             {step == 4 &&
-              <div ref={step4Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100dvh] md:pl-[220px] pt-[220px] md:pt-0'>
+              <div ref={step4Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100dvh] md:pl-[220px] pt-[100px] md:pt-0'>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>Watch Your Step!</span>
-                <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>
+                <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[4px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>
                   The battle's heating up, and it's not just about dodging enemies.<br />
                   You've got to keep an eye on where you're stepping too!<br />
                   <br />
@@ -317,8 +317,9 @@ function JuicyAdventure() {
                   But hey, you can also use jumping boards to zip away from trouble.<br />
                   So,use the map to your advantage, and aim to be the last one standing.
                 </span>
-                <Carousel controls={false} indicators={false} interval={1500} className='w-[263px] h-[125px] md:w-[643px] md:h-[306px] mt-[34px]'>
-                  {['/img/img_step4_1.png', '/img/img_step4_2.png', '/img/img_step4_3.png'].map((it) => {
+                <Carousel controls={false} indicators={false} interval={1000}
+                  className='w-[263px] h-[125px] md:w-[643px] md:h-[306px] mt-[12px] md:mt-[34px] rounded-[12px] overflow-hidden'>
+                  {['/img/map_history.gif', '/img/map_jungle.gif'].map((it) => {
                     return (
                       <Carousel.Item>
                         <img src={it} className='' />
@@ -328,7 +329,7 @@ function JuicyAdventure() {
                 <span className='text-white text-[15px] mt-[12px] hidden md:flex self-center'>
                   It's all about being smart and quick on your feet!
                 </span>
-                <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionY(getIsMobile() ? 50 : 29)}%`, top: `${getButtonPositionY(getIsMobile() ? 30 : 33)}%` }}>
+                <div className='fixed w-[10px] h-[10px] flex items-center justify-center' style={{ left: `${getButtonPositionY(getIsMobile() ? 50 : 29)}%`, top: `${getButtonPositionY(getIsMobile() ? 23 : 33)}%` }}>
                   <AnimatingButton onClick={() => {
                     moveToStep(5)
                   }} />
@@ -338,7 +339,7 @@ function JuicyAdventure() {
 
 
             {step == 5 &&
-              <div ref={step5Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100dvh] md:pl-[400px] pt-[220px] md:pt-0'>
+              <div ref={step5Ref} className='flex flex-col items-center md:items-start justify-center self-center h-[100dvh] md:pl-[400px] pt-[160px] md:pt-0'>
                 <span className='text-[24px] md:text-[32px] font-bold text-white whitespace-pre-line text-center md:text-start'>Your Juice is ready!</span>
                 <span className='text-[8px] md:text-[16px] font-extralight text-white whitespace-pre-line mt-[22px] md:mt-[40px]' style={{ textAlign: getIsMobile() ? "center" : "left" }}>
                   This juice can trn turn animals into humans<br />
@@ -398,7 +399,7 @@ function JuicyAdventure() {
             }
 
             {step == 8 &&
-              <div className='z-1' ref={step8Ref}
+              <div ref={step8Ref}
                 onWheel={() => {
                   setShowFooter(true)
                 }}
@@ -416,7 +417,9 @@ function JuicyAdventure() {
                     Squeeze your way{getIsMobile() && "\n"} to victory
                   </span>
                   <span className='text-white text-[48px] leading-[48px] md:text-[100px] md:leading-[124px] font-bold whitespace-pre-line text-center mt-[77px] md:mt-[68px]'>
-                    {parseInt((Math.max(0, remainedAirdropSeconds) / (24 * 3600)).toString())}D&nbsp;
+                    <span className='text-[#FFE900]'>
+                      {parseInt((Math.max(0, remainedAirdropSeconds) / (24 * 3600)).toString())}D&nbsp;
+                    </span>
                     {getIsMobile() ? <br /> : ""}
                     {leftPad(parseInt(((Math.max(0, remainedAirdropSeconds) % (24 * 3600)) / 3600).toString()), 2)}
                     :
@@ -432,9 +435,9 @@ function JuicyAdventure() {
                     }}
                     className={remainedAirdropSeconds > 0
                       ?
-                      'flex flex-row bg-[#ADADAD] rounded-[20px] w-[250px] h-[40px] items-center justify-center self-center absolute bottom-[70px] md:sticky md:mt-[18px]'
+                      'flex flex-row bg-[#ADADAD] rounded-[20px] w-[250px] h-[40px] items-center justify-center self-center mt-[18px]'
                       :
-                      'flex flex-row bg-[#B9269E] rounded-[20px] w-[250px] h-[40px] items-center justify-center self-center cursor-pointer absolute bottom-[70px] md:sticky md:mt-[18px]'
+                      'flex flex-row bg-[#B9269E] rounded-[20px] w-[250px] h-[40px] items-center justify-center self-center cursor-pointer mt-[18px]'
                     }>
                     {remainedAirdropSeconds > 0 &&
                       <img src='/img/ic_lock.png' className='w-[25px] h-[25px]' />
@@ -457,7 +460,7 @@ function JuicyAdventure() {
               </div>
             }
 
-            <div ref={timerRef} className='fixed bottom-[30px] right-0 md:right-[30px] -z-10'>
+            <div ref={timerRef} className='fixed bottom-[00px] right-0 md:right-[30px] z-[100]'>
               {remainedAirdropSeconds ?
                 <img src={'img/ic_countdown.png'} className='w-[294px] h-[166px] md:w-[812px] md:h-[458px]' />
                 :

@@ -40,7 +40,6 @@ const StepGrowNft = ({ onNextStep }: Props) => {
                                         gsap.timeline().to(mickey7Ref.current, { duration: 0.2, ease: "expo.out", opacity: 1, })
                                             .to(scrollDownBtnRef.current, {
                                                 duration: 1, ease: "expo.out",
-                                                y: -20,
                                                 opacity: 1,
                                             })
                                     })
@@ -75,10 +74,10 @@ const StepGrowNft = ({ onNextStep }: Props) => {
                 <img ref={mickey7Ref} src='/img/img_mickey.png' className='w-[91px] h-[105px] md:w-[176px] md:h-[201px]' style={{ opacity: 0 }} />
             </div>
             <div ref={scrollDownBtnRef} style={{ opacity: 0 }}
-                className='fixed w-[45px] h-[45px] translate-x-[-50%] flex items-center justify-center bottom-[30px] cursor-pointer left-[50%] z-1' onClick={() => {
+                className='fixed w-[45px] h-[45px] md:w-[100px] md:h-[100px] translate-x-[-50%] flex items-center justify-center bottom-[0px] cursor-pointer left-[50%] z-[1000]' onClick={() => {
                     onNextStep()
                 }}>
-                <img src='/img/ic_scroll_down.png' className='w-[45px] h-[45px]' />
+                <img src='/img/ic_scroll_down.png' className='w-full h-full' />
             </div>
         </div>
     );

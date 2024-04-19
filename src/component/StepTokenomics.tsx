@@ -41,14 +41,13 @@ const StepTokenomics = ({ onNextStep }: Props) => {
             })
             .to(scrollDownBtnRef.current, {
                 duration: 1, ease: "expo.out",
-                y: -20,
                 opacity: 1,
             })
     }, [])
 
     return (
         <div className='flex flex-col items-center justify-center self-center h-[100dvh]'>
-            <span className='whitespace-pre-line text-center'>
+            <span className='whitespace-pre-line text-center mt-[-100px]'>
                 <span ref={tokenomicsTxtRef1} className='text-[24px] md:text-[42px] text-white font-bold text-center'></span>
                 {getIsMobile() ? "\n" : <span className='mx-[6px]' />}
                 <span ref={tokenomicsTxtRef2} className='text-[24px] md:text-[42px] text-white font-bold text-center'></span>
@@ -80,7 +79,7 @@ const StepTokenomics = ({ onNextStep }: Props) => {
             </div>
 
             <div ref={btnRef} style={{ opacity: 0 }}
-                className='flex items-center justify-center w-[210px] h-[33px] md:w-[295px] md:h-[40px] text-white text-[11px] md:text-[15px] text-center bg-[#B9269E] rounded-[16px] md:rounded-[20px] mt-[76px] md:mt-[35px] cursor-pointer z-1'>
+                className='flex items-center justify-center w-[210px] h-[33px] md:w-[295px] md:h-[40px] text-white text-[11px] md:text-[15px] text-center bg-[#B9269E] rounded-[16px] md:rounded-[20px] mt-[25px] md:mt-[35px] cursor-pointer'>
                 <a target='_blank' className='text-white no-underline' href='https://grampus-cwc.gitbook.io/gram_voyage/tokenomics/governance-token-usdgram-token'>
                     <span className='whitespace-pre-line leading-[11px] md:leading-[15px]'>
                         All about <span className='font-bold'>GRAM</span>{getIsMobile() && "\n"} ecosystem
@@ -89,10 +88,10 @@ const StepTokenomics = ({ onNextStep }: Props) => {
             </div>
 
             <div ref={scrollDownBtnRef} style={{ opacity: 0 }}
-                className='fixed w-[45px] h-[45px] translate-x-[-50%] flex items-center justify-center bottom-[30px] cursor-pointer left-[50%] z-1' onClick={() => {
+                className='fixed w-[45px] h-[45px] md:w-[100px] md:h-[100px] translate-x-[-50%] flex items-center justify-center bottom-[0px] cursor-pointer left-[50%] z-[1000]' onClick={() => {
                     onNextStep()
                 }}>
-                <img src='/img/ic_scroll_down.png' className='w-[45px] h-[45px]' />
+                <img src='/img/ic_scroll_down.png' className='w-full h-full' />
             </div>
         </div>
     );
