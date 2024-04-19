@@ -37,7 +37,7 @@ const Header = ({ remainedAirdropSeconds, onGoToStep }: Props) => {
                 <div ref={menuRef} className='flex flex-row justify-between items-center px-[20px] md:px-0 py-[11px] md:py-[16px]'>
                     <div className='flex flex-row items-center'>
                         <img src='/img/ic_menu.svg' className='w-[40px] h-[40px] md:w-[40px] md:h-[40px] cursor-pointer' onClick={onMenu} />
-                        <img src='/img/img_juicy_logo.png' className='w-[90px] h-[48px] ml-[20px] cursor-pointer' onClick={() => { location.reload() }} />
+                        <img src='/img/img_juicy_logo.png' className='hidden md:flex w-[90px] h-[48px] ml-[20px] cursor-pointer' onClick={() => { location.reload() }} />
                     </div>
                     <div className='hidden md:flex flex-row items-center space-x-[26px]'>
                         <a target='_blank' href={WHITE_PAPER_LINK}>
