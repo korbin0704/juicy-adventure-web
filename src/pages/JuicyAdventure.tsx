@@ -319,7 +319,7 @@ function JuicyAdventure() {
                 </span>
                 <Carousel controls={false} indicators={false} interval={1000}
                   className='w-[263px] h-[125px] md:w-[643px] md:h-[306px] mt-[12px] md:mt-[34px] rounded-[12px] overflow-hidden'>
-                  {['/img/map_history.gif', '/img/map_jungle.gif'].map((it) => {
+                  {['https://d3u2pnu58u70ht.cloudfront.net/Announcement/jungle.gif', 'https://d3u2pnu58u70ht.cloudfront.net/Announcement/historic.gif'].map((it) => {
                     return (
                       <Carousel.Item>
                         <img src={it} className='' />
