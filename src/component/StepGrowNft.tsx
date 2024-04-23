@@ -77,7 +77,7 @@ const StepGrowNft = ({ onNextStep }: Props) => {
                 className='fixed w-[45px] h-[45px] md:w-[100px] md:h-[100px] translate-x-[-50%] flex items-center justify-center bottom-[0px] cursor-pointer left-[50%] z-[1000]' onClick={() => {
                     onNextStep()
                 }}>
-                <img src='/img/ic_scroll_down.png' className='w-full h-full' />
+                <img src='/img/ic_scroll_down.gif' className='w-full h-full' />
             </div>
         </div>
     );
