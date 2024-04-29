@@ -149,7 +149,7 @@ function JuicyAdventure() {
   const onVideoReady = () => { // TODO : Because of this function, cannot use hook inside loadingEnd state tree. Don't know why.
     setTimeout(() => {
       setLoadingEnd(true)
-    }, 2000)
+    }, 500)
   }
   const moveToStep = (p_step: number) => {
     gsap.to(step1Ref.current, { opacity: 0, duration: 1 })
