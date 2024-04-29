@@ -5,7 +5,7 @@ const PageRoutes = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route index path="/juicyadventure" element={<JuicyAdventure />} />
+                <Route index path="/" element={<JuicyAdventure />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>

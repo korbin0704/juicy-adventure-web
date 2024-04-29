@@ -1,6 +1,7 @@
 # React + TypeScript + Vite
 
 [Preview - Dev](https://juicy-adventure.netlify.app/juicyadventure)
+
 [Preview - Release](https://gram.voyage/juicyadventure/)
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
