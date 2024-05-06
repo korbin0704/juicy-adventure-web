@@ -1,6 +1,6 @@
 # React + TypeScript + Vite
 
-[Preview - Dev](https://juicy-adventure.netlify.app/)
+[Preview - Dev](https://juicy-adventure-korbin.netlify.app/)
 
 [Preview - Release](https://gram.voyage/juicyadventure/)
 
